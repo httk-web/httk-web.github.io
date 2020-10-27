@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>{page.title}</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{page.relbaseurl}/resources/css/httkdemo.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3d11bda958.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {{
+          document.querySelectorAll('pre.code').forEach((block) => {{
+              hljs.highlightBlock(block);
+          }});
+      }});
+    </script>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-custom navbar-expand-md navbar-static-top border-bottom border-3 border-darkgrey">
+      <div class="btn-group">
+	<a class="btn btn-info top-left-dropdown" href="{page.relbaseurl}/index.html"><img style="height: 1.5em" src="img/httk-logo-curves.svg" alt="The High-Throughput Toolkit (httk)"></img></a>
+	<button type="button" class="btn btn-primary dropdown-toggle btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  <span class="caret"></span>
+	  <span class="sr-only"></span>
+	</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	  <a class="dropdown-item" href="http://openmaterialsdb.se">Open Materials Database</a>
+          <a class="dropdown-item" href="http://rickard.armiento.se">Rickard Armiento</a>
+	</div>
+      </div>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#header_tabs" aria-controls="header_tabs" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/index.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disable" href="{page.relbaseurl}/quickstart.html"> Quickstart</a>
+            <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-structures.html">Structures</a></li>
+	      <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-vectors.html">Vectors</a></li>
+              <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-databases.html">Databases</a></li>
+              <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-httkweb.html">Httk-web</a></li>
+	    </ul>
+          <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/publications.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://docs.httk.org/">Full docs <i class="fas fa-external-link-alt"></i></a></li>
+        </ul>
+	<!--ul class="navbar-nav nav ml-auto">
+	  {menuitems:repeat::
+            <li class="nav-item">
+              <a class="nav-link" href="{page.relbaseurl}/{{pages:call:{{item}}:relurl}}">{{pages:call:{{item}}:title}}</a>
+            </li>
+	  }
+	</ul-->
+      </div>
+    </nav>
+</section>
+{content}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
