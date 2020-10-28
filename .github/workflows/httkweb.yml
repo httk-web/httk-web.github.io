@@ -38,10 +38,11 @@ jobs:
         git config user.name httkweb-github-action
         git config user.email '<>'
         git fetch origin gh-pages
-        git checkout gh-pages        
+        git checkout gh-pages
         mv docs ../gh-pages
-        mv .git ../gh-pages
+        mv .git ../gh-pages        
         cd ../gh-pages
+        touch .nojekyll
         git add .
         git commit -m "Generated website contents $(date --rfc-2822)"
         git push
