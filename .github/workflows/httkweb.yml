@@ -31,8 +31,10 @@ jobs:
         export PATH=$PWD/httk/bin:$PATH
         cd web
         python3 ./publish.py
+        cd ..
     - name: Publish website
       run: |
+        cd web
         git config user.name httkweb-github-action
         git config user.email '<>'
         git fetch origin gh-pages
