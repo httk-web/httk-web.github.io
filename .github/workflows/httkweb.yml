@@ -22,13 +22,9 @@ jobs:
         repository: httk/httk
         ref: devel
         path: httk
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Install dependencies
       run: |
-        sudo apt-get install python3-docutils
+        sudo apt-get install python3 python3-docutils
     - name: Generate website
       run: |
         export PYTHONPATH=$PWD/httk/src:$PYTHONPATH
