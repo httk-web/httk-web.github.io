@@ -1,0 +1,47 @@
+name: httkweb
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout httk-web
+      uses: actions/checkout@v2
+      with:
+        path: web
+    - name: Checkout httk
+      uses: actions/checkout@v2
+      with:
+        repository: httk/httk
+        path: httk
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        apt install python3-docutils
+    - name: Generate website
+      run: |
+        source httk/init.shell
+        cd web
+        python3 ./publish.py
+    - name: Publish website
+      run: |
+        git config user.name httkweb-github-action
+        git config user.email '<>'
+        mv Docs ../gh-pages        
+        git fetch origin gh-pages
+        git checkout origin/gh-pages
+        rm -rf *
+        mv ../gh-pages/* .
+        git add .
+        git commit -m "Generated website contents $(date --rfc-2822)"
+        git push --force
