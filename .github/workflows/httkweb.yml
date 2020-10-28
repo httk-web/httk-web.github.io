@@ -32,6 +32,7 @@ jobs:
       run: |
         source httk/init.shell
     - name: Generate website
+      run: |
         cd web
         python3 ./publish.py
     - name: Publish website
