@@ -28,9 +28,10 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install python3-docutils
-    - name: Generate website
+    - name: Initialize httk
       run: |
         source httk/init.shell
+    - name: Generate website
         cd web
         python3 ./publish.py
     - name: Publish website
