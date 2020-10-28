@@ -31,10 +31,10 @@ jobs:
         sudo apt-get install python3-docutils
     - name: Generate website
       run: |
-        export PYTHONPATH=$PWD/httk/src
-        export PATH=$PWD/httk/bin
+        export PYTHONPATH=$PWD/httk/src:$PYTHONPATH
+        export PATH=$PWD/httk/bin:$PATH
         cd web
-        python ./publish.py
+        python3 ./publish.py
     - name: Publish website
       run: |
         git config user.name httkweb-github-action
