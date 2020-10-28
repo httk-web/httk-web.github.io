@@ -38,7 +38,7 @@ jobs:
         git config user.name httkweb-github-action
         git config user.email '<>'
         git fetch origin gh-pages
-        git checkout origin/gh-pages        
+        git checkout gh-pages        
         mv docs ../gh-pages
         mv .git ../gh-pages
         cd ../gh-pages
