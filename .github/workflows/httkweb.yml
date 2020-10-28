@@ -27,7 +27,7 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        apt install python3-docutils
+        sudo apt-get install python3-docutils
     - name: Generate website
       run: |
         source httk/init.shell
@@ -37,11 +37,11 @@ jobs:
       run: |
         git config user.name httkweb-github-action
         git config user.email '<>'
-        mv Docs ../gh-pages        
         git fetch origin gh-pages
-        git checkout origin/gh-pages
-        rm -rf *
-        mv ../gh-pages/* .
+        git checkout origin/gh-pages        
+        mv Docs ../gh-pages
+        mv .git ../gh-pages
+        cd ../gh-pages
         git add .
         git commit -m "Generated website contents $(date --rfc-2822)"
-        git push --force
+        git push
