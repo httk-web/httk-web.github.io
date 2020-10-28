@@ -30,7 +30,8 @@ jobs:
         sudo apt-get install python3-docutils
     - name: Initialize httk
       run: |
-        source httk/init.shell
+        export PYTHONPATH=$PWD/httk/src
+        export PATH=$PWD/httk/bin
     - name: Generate website
       run: |
         cd web
