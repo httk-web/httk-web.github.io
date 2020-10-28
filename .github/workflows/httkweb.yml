@@ -39,7 +39,7 @@ jobs:
         git config user.email '<>'
         git fetch origin gh-pages
         git checkout origin/gh-pages        
-        mv Docs ../gh-pages
+        mv docs ../gh-pages
         mv .git ../gh-pages
         cd ../gh-pages
         git add .
