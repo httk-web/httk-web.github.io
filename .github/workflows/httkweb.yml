@@ -34,7 +34,7 @@ jobs:
         export PYTHONPATH=$PWD/httk/src
         export PATH=$PWD/httk/bin
         cd web
-        python3 ./publish.py
+        python ./publish.py
     - name: Publish website
       run: |
         git config user.name httkweb-github-action
