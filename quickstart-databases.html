@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Front page</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./resources/css/httkdemo.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3d11bda958.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+          document.querySelectorAll('pre.code').forEach((block) => {
+              hljs.highlightBlock(block);
+          });
+      });
+    </script>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-custom navbar-expand-md navbar-static-top border-bottom border-3 border-darkgrey">
+      <div class="btn-group">
+	<a class="btn btn-info top-left-dropdown" href="./index.html"><img style="height: 1.5em" src="img/httk-logo-curves.svg" alt="The High-Throughput Toolkit (httk)"></img></a>
+	<button type="button" class="btn btn-primary dropdown-toggle btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  <span class="caret"></span>
+	  <span class="sr-only"></span>
+	</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	  <a class="dropdown-item" href="http://openmaterialsdb.se">Open Materials Database</a>
+          <a class="dropdown-item" href="http://rickard.armiento.se">Rickard Armiento</a>
+	</div>
+      </div>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#header_tabs" aria-controls="header_tabs" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="./index.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disable" href="./quickstart.html"> Quickstart</a>
+            <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="./quickstart-structures.html">Structures</a></li>
+	      <li><a class="dropdown-item" href="./quickstart-vectors.html">Vectors</a></li>
+              <li><a class="dropdown-item" href="./quickstart-databases.html">Databases</a></li>
+              <li><a class="dropdown-item" href="./quickstart-httkweb.html">Httk-web</a></li>
+	    </ul>
+          <li class="nav-item"><a class="nav-link" href="./publications.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://docs.httk.org/">Full docs <i class="fas fa-external-link-alt"></i></a></li>
+        </ul>
+	<!--ul class="navbar-nav nav ml-auto">
+	  
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Front page</a>
+            </li>
+	  
+            <li class="nav-item">
+              <a class="nav-link" href="./contact.html">Contact</a>
+            </li>
+	  
+	</ul-->
+      </div>
+    </nav>
+</section>
+<div class="container">
+  <main class="main-content">
+    <div class="document">
+
+<div class="section" id="httk-quickstart-databases">
+<h1><em>httk</em> quickstart: databases</h1>
+<div class="section" id="create-database-file-store-a-structure-in-it-and-retrive-it">
+<h2>Create database file, store a structure in it, and retrive it</h2>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">httk</span><span class="operator">,</span> <span class="name namespace">httk.db</span>
+<span class="keyword namespace">from</span> <span class="name namespace">httk.atomistic</span> <span class="keyword namespace">import</span> <span class="name">Structure</span>
+
+<span class="name">backend</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">backend</span><span class="operator">.</span><span class="name">Sqlite</span><span class="punctuation">(</span><span class="literal string single">'example.sqlite'</span><span class="punctuation">)</span>
+<span class="name">store</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">store</span><span class="operator">.</span><span class="name">SqlStore</span><span class="punctuation">(</span><span class="name">backend</span><span class="punctuation">)</span>
+
+<span class="name">tablesalt</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'NaCl.cif'</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">tablesalt</span><span class="punctuation">)</span>
+
+<span class="name">arsenic</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'As.cif'</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">arsenic</span><span class="punctuation">)</span>
+
+<span class="comment single"># Search for anything with Na</span>
+<span class="name">search</span> <span class="operator">=</span> <span class="name">store</span><span class="operator">.</span><span class="name">searcher</span><span class="punctuation">()</span>
+<span class="name">search_struct</span> <span class="operator">=</span> <span class="name">search</span><span class="operator">.</span><span class="name">variable</span><span class="punctuation">(</span><span class="name">Structure</span><span class="punctuation">)</span>
+<span class="name">search</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">search_struct</span><span class="operator">.</span><span class="name">formula_symbols</span><span class="operator">.</span><span class="name">is_in</span><span class="punctuation">(</span><span class="literal string single">'Na'</span><span class="punctuation">))</span>
+
+<span class="name">search</span><span class="operator">.</span><span class="name">output</span><span class="punctuation">(</span><span class="name">search_struct</span><span class="punctuation">,</span> <span class="literal string single">'structure'</span><span class="punctuation">)</span>
+
+<span class="keyword">for</span> <span class="name">match</span><span class="punctuation">,</span> <span class="name">header</span> <span class="operator word">in</span> <span class="name builtin">list</span><span class="punctuation">(</span><span class="name">search</span><span class="punctuation">):</span>
+    <span class="name">struct</span> <span class="operator">=</span> <span class="name">match</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">]</span>
+    <span class="keyword">print</span> <span class="literal string double">&quot;Found structure&quot;</span><span class="punctuation">,</span> <span class="name">struct</span><span class="operator">.</span><span class="name">formula</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name builtin">str</span><span class="punctuation">(</span><span class="name">struct</span><span class="operator">.</span><span class="name">get_tags</span><span class="punctuation">()[</span><span class="name">x</span><span class="punctuation">])</span> <span class="keyword">for</span> <span class="name">x</span> <span class="operator word">in</span> <span class="name">struct</span><span class="operator">.</span><span class="name">get_tags</span><span class="punctuation">()]</span>
+</pre>
+</div>
+<div class="section" id="create-database-file-and-store-your-own-data-in-it">
+<h2>Create database file and store your own data in it</h2>
+<pre class="code python literal-block">
+<span class="comment hashbang">#!/usr/bin/env python</span>
+
+<span class="keyword namespace">import</span> <span class="name namespace">httk</span><span class="operator">,</span> <span class="name namespace">httk.db</span>
+<span class="keyword namespace">from</span> <span class="name namespace">httk.atomistic</span> <span class="keyword namespace">import</span> <span class="name">Structure</span>
+
+<span class="keyword">class</span> <span class="name class">StructureIsEdible</span><span class="punctuation">(</span><span class="name">httk</span><span class="operator">.</span><span class="name">HttkObject</span><span class="punctuation">):</span>
+
+    <span class="name decorator">&#64;httk.httk_typed_init</span><span class="punctuation">({</span><span class="literal string single">'structure'</span><span class="punctuation">:</span> <span class="name">Structure</span><span class="punctuation">,</span> <span class="literal string single">'is_edible'</span><span class="punctuation">:</span> <span class="name builtin">bool</span><span class="punctuation">})</span>
+    <span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">structure</span><span class="punctuation">,</span> <span class="name">is_edible</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">structure</span> <span class="operator">=</span> <span class="name">structure</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">is_edible</span> <span class="operator">=</span> <span class="name">is_edible</span>
+
+<span class="name">backend</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">backend</span><span class="operator">.</span><span class="name">Sqlite</span><span class="punctuation">(</span><span class="literal string single">'example.sqlite'</span><span class="punctuation">)</span>
+<span class="name">store</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">store</span><span class="operator">.</span><span class="name">SqlStore</span><span class="punctuation">(</span><span class="name">backend</span><span class="punctuation">)</span>
+
+<span class="name">tablesalt</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'NaCl.cif'</span><span class="punctuation">)</span>
+<span class="name">edible</span> <span class="operator">=</span> <span class="name">StructureIsEdible</span><span class="punctuation">(</span><span class="name">tablesalt</span><span class="punctuation">,</span> <span class="name builtin pseudo">True</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">edible</span><span class="punctuation">)</span>
+
+<span class="name">arsenic</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'As.cif'</span><span class="punctuation">)</span>
+<span class="name">edible</span> <span class="operator">=</span> <span class="name">StructureIsEdible</span><span class="punctuation">(</span><span class="name">arsenic</span><span class="punctuation">,</span> <span class="name builtin pseudo">False</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">edible</span><span class="punctuation">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+  </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

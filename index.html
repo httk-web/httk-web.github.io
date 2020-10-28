@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Front page</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./resources/css/httkdemo.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3d11bda958.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+          document.querySelectorAll('pre.code').forEach((block) => {
+              hljs.highlightBlock(block);
+          });
+      });
+    </script>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-custom navbar-expand-md navbar-static-top border-bottom border-3 border-darkgrey">
+      <div class="btn-group">
+	<a class="btn btn-info top-left-dropdown" href="./index.html"><img style="height: 1.5em" src="img/httk-logo-curves.svg" alt="The High-Throughput Toolkit (httk)"></img></a>
+	<button type="button" class="btn btn-primary dropdown-toggle btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  <span class="caret"></span>
+	  <span class="sr-only"></span>
+	</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	  <a class="dropdown-item" href="http://openmaterialsdb.se">Open Materials Database</a>
+          <a class="dropdown-item" href="http://rickard.armiento.se">Rickard Armiento</a>
+	</div>
+      </div>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#header_tabs" aria-controls="header_tabs" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="./index.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disable" href="./quickstart.html"> Quickstart</a>
+            <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="./quickstart-structures.html">Structures</a></li>
+	      <li><a class="dropdown-item" href="./quickstart-vectors.html">Vectors</a></li>
+              <li><a class="dropdown-item" href="./quickstart-databases.html">Databases</a></li>
+              <li><a class="dropdown-item" href="./quickstart-httkweb.html">Httk-web</a></li>
+	    </ul>
+          <li class="nav-item"><a class="nav-link" href="./publications.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://docs.httk.org/">Full docs <i class="fas fa-external-link-alt"></i></a></li>
+        </ul>
+	<!--ul class="navbar-nav nav ml-auto">
+	  
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Front page</a>
+            </li>
+	  
+            <li class="nav-item">
+              <a class="nav-link" href="./contact.html">Contact</a>
+            </li>
+	  
+	</ul-->
+      </div>
+    </nav>
+</section>
+<section class="page-header">
+  <h1 class="project-name"><i><img alt="httk" src="img/httk-logo-curves.svg"></img></i></h1>
+  <h2 class="project-tagline">
+    The High-Throughput Toolkit (<i>httk</i>) is a toolkit for preparing and running calculations,<br>
+    analyzing the results, and storing results in global and/or personalized databases.</h2>
+  <a class="btn" href="https://github.com/httk/httk"><i class="fa fa-github"></i> GitHub</a>
+  <!--a class="btn" href="https://twitter.com/_httk"><i class="fa fa-twitter"></i> Twitter</a-->
+  <a class="btn" href="https://docs.httk.org/"><i class="fa fa-book"></i> Docs</a>
+  <a class="btn" href="https://forums.planetmatsci.org/feed/httk"><i class="fa fa-comments"></i> Forum</a>
+  <a class="btn" href="https://docs.httk.org/en/latest/developers_guide.html"><i class="fa fa-plus"></i> Contribute</a>
+</section>
+<div class="container">
+  <main class="main-content">
+    <div class="document">
+
+<div class="section" id="the-high-throughput-toolkit-httk">
+<h1>The High-Throughput Toolkit (<em>httk</em>)</h1>
+<p>The High-Throughput Toolkit (<em>httk</em>) is a toolkit for preparing and running calculations, analyzing the results, and storing results in global and/or personalized databases. <em>httk</em> is presently targeted at atomistic calculations in materials science and electronic structure, but aims to be extended into a library useful also outside those areas.</p>
+<p><em>httk</em> was created in 2014.</p>
+<!-- It is a design guideline of *httk* that its central functionality is implemented in pure Python without external dependencies. However, it does support a number of integrations with other libraries.
+
+*httk* contains a number of subcomponents written in pure Python that may be useful in other contexts:
+
+- A general workflow manager that allows running sophisticated ensemble jobs on supercomputers over thousands of CPU cores, just as well as executing multi-stage operations on your own computer.
+
+- A strong object relational mapper that allow storing general Python objects in an sql database and do queries on them.
+
+- A deterministic arbitrary precision numerical library with arrays.
+
+- A UI library based on html and templates that allows using the same Python code for websites and user interfaces. -->
+<div class="section" id="installation">
+<h2>Installation</h2>
+<ul>
+<li><p class="first">If you just want to use <em>httk</em>, this should work:</p>
+<pre class="code bash literal-block">
+pip install httk
+</pre>
+<ul class="simple">
+<li>If your <tt class="docutils literal">pip</tt> works as it should, you should be able to do <tt class="docutils literal">import httk</tt> in Python, as well as run the <tt class="docutils literal">httk</tt> command line tool.</li>
+</ul>
+<!--  -->
+</li>
+<li><p class="first">An alternative is to clone the master branch of our source code repository, which is meant to always give you the latest release:</p>
+<pre class="code bash literal-block">
+git clone https://github.com/httk/httk
+</pre>
+<p>Then, every time you want to use <em>httk</em> you need to initialize the environtment with:</p>
+<pre class="code bash literal-block">
+<span class="name builtin">source</span> /path/to/httk/init.shell
+</pre>
+<p>(Which, of course, can be put in your shell initialization scripts)</p>
+</li>
+<li><p class="first">For more installation alternatives, see the <a class="reference external" href="https://docs.httk.org/en/latest/">full documentation</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="quickstart">
+<h2>Quickstart</h2>
+<ul class="simple">
+<li>A few short general <em>httk</em> code examples follow in sections below.</li>
+<li>Quickstarts covering specific functionalities are available for working with:<ul>
+<li><a class="reference external" href="quickstart-structures.html">Atomic structures (i.e., crystal structures / slabs / molecules)</a></li>
+<li><a class="reference external" href="quickstart-vectors.html">Vectors</a></li>
+<li><a class="reference external" href="quickstart-httkweb.html">UI and websites</a></li>
+<li><a class="reference external" href="quickstart-databases.html">Databases</a></li>
+</ul>
+</li>
+<li>The <em>httk</em> installation also contains the subdirectories <tt class="docutils literal">Examples</tt> and <tt class="docutils literal">Tutorial/step1</tt>, <tt class="docutils literal">/step2</tt>, etc.</li>
+</ul>
+</div>
+<div class="section" id="a-few-simple-usage-examples">
+<h2>A few simple usage examples</h2>
+<div class="section" id="load-a-cif-file-or-poscar">
+<h3>Load a cif file or poscar</h3>
+<p>This is a very simple example of just loading a structure from a <tt class="docutils literal">.cif</tt> file and writing out some information about it.</p>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">httk</span>
+
+<span class="name">struct</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string double">&quot;example.cif&quot;</span><span class="punctuation">)</span>
+
+<span class="keyword">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Formula:&quot;</span><span class="punctuation">,</span> <span class="name">struct</span><span class="operator">.</span><span class="name">formula</span><span class="punctuation">)</span>
+<span class="keyword">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Volume:&quot;</span><span class="punctuation">,</span> <span class="name builtin">float</span><span class="punctuation">(</span><span class="name">struct</span><span class="operator">.</span><span class="name">uc_volume</span><span class="punctuation">))</span>
+<span class="keyword">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Assignments:&quot;</span><span class="punctuation">,</span> <span class="name">struct</span><span class="operator">.</span><span class="name">uc_formula_symbols</span><span class="punctuation">)</span>
+<span class="keyword">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Counts:&quot;</span><span class="punctuation">,</span> <span class="name">struct</span><span class="operator">.</span><span class="name">uc_counts</span> <span class="punctuation">)</span>
+<span class="keyword">print</span><span class="punctuation">(</span><span class="literal string double">&quot;Coords:&quot;</span><span class="punctuation">,</span> <span class="name">struct</span><span class="operator">.</span><span class="name">uc_reduced_coords</span><span class="punctuation">)</span>
+</pre>
+<p>Running this generates the output:</p>
+<pre class="literal-block">
+('Formula:', 'BO2Tl')
+('Volume', 509.24213999999984)
+('Assignments',['B', 'O', 'Tl'])
+('Counts:', [8, 16, 8])
+('Coords', FracVector(((1350,4550,4250) , ... , ,10000)))
+</pre>
+<!--  -->
+</div>
+<div class="section" id="create-structures-in-code">
+<h3>Create structures in code</h3>
+<pre class="code python literal-block">
+<span class="keyword namespace">from</span> <span class="name namespace">httk.atomistic</span> <span class="keyword namespace">import</span> <span class="name">Structure</span>
+
+<span class="name">cell</span> <span class="operator">=</span> <span class="punctuation">[[</span><span class="literal number float">1.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">]</span> <span class="punctuation">,</span>
+        <span class="punctuation">[</span><span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">1.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">]</span> <span class="punctuation">,</span>
+        <span class="punctuation">[</span><span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">1.0</span><span class="punctuation">]]</span>
+<span class="name">coordgroups</span> <span class="operator">=</span> <span class="punctuation">[[</span>
+                  <span class="punctuation">[</span><span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">]</span>
+               <span class="punctuation">],[</span>
+                  <span class="punctuation">[</span><span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">]</span>
+               <span class="punctuation">],[</span>
+                  <span class="punctuation">[</span><span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">],</span> <span class="punctuation">[</span><span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">],</span> <span class="punctuation">[</span><span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.0</span><span class="punctuation">,</span> <span class="literal number float">0.5</span><span class="punctuation">]</span>
+               <span class="punctuation">]]</span>
+
+<span class="name">assignments</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="literal string single">'Pb'</span> <span class="punctuation">,</span><span class="literal string single">'Ti'</span> <span class="punctuation">,</span><span class="literal string single">'O'</span><span class="punctuation">]</span>
+<span class="name">volume</span> <span class="operator">=</span><span class="literal number float">62.79</span>
+<span class="name">struct</span> <span class="operator">=</span> <span class="name">Structure</span><span class="operator">.</span><span class="name">create</span><span class="punctuation">(</span><span class="name">uc_cell</span> <span class="operator">=</span> <span class="name">cell</span><span class="punctuation">,</span>
+             <span class="name">uc_reduced_coordgroups</span> <span class="operator">=</span> <span class="name">coordgroups</span><span class="punctuation">,</span>
+             <span class="name">assignments</span> <span class="operator">=</span> <span class="name">assignments</span><span class="punctuation">,</span>
+             <span class="name">uc_volume</span> <span class="operator">=</span> <span class="name">volume</span><span class="punctuation">)</span>
+</pre>
+</div>
+<div class="section" id="create-database-file-store-a-structure-in-it-and-retrive-it">
+<h3>Create database file, store a structure in it, and retrive it</h3>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">httk</span><span class="operator">,</span> <span class="name namespace">httk.db</span>
+<span class="keyword namespace">from</span> <span class="name namespace">httk.atomistic</span> <span class="keyword namespace">import</span> <span class="name">Structure</span>
+
+<span class="name">backend</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">backend</span><span class="operator">.</span><span class="name">Sqlite</span><span class="punctuation">(</span><span class="literal string single">'example.sqlite'</span><span class="punctuation">)</span>
+<span class="name">store</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">store</span><span class="operator">.</span><span class="name">SqlStore</span><span class="punctuation">(</span><span class="name">backend</span><span class="punctuation">)</span>
+
+<span class="name">tablesalt</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'NaCl.cif'</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">tablesalt</span><span class="punctuation">)</span>
+
+<span class="name">arsenic</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'As.cif'</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">arsenic</span><span class="punctuation">)</span>
+
+<span class="comment single"># Search for anything with Na</span>
+<span class="name">search</span> <span class="operator">=</span> <span class="name">store</span><span class="operator">.</span><span class="name">searcher</span><span class="punctuation">()</span>
+<span class="name">search_struct</span> <span class="operator">=</span> <span class="name">search</span><span class="operator">.</span><span class="name">variable</span><span class="punctuation">(</span><span class="name">Structure</span><span class="punctuation">)</span>
+<span class="name">search</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">search_struct</span><span class="operator">.</span><span class="name">formula_symbols</span><span class="operator">.</span><span class="name">is_in</span><span class="punctuation">(</span><span class="literal string single">'Na'</span><span class="punctuation">))</span>
+
+<span class="name">search</span><span class="operator">.</span><span class="name">output</span><span class="punctuation">(</span><span class="name">search_struct</span><span class="punctuation">,</span> <span class="literal string single">'structure'</span><span class="punctuation">)</span>
+
+<span class="keyword">for</span> <span class="name">match</span><span class="punctuation">,</span> <span class="name">header</span> <span class="operator word">in</span> <span class="name builtin">list</span><span class="punctuation">(</span><span class="name">search</span><span class="punctuation">):</span>
+    <span class="name">struct</span> <span class="operator">=</span> <span class="name">match</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">]</span>
+    <span class="keyword">print</span> <span class="literal string double">&quot;Found structure&quot;</span><span class="punctuation">,</span> <span class="name">struct</span><span class="operator">.</span><span class="name">formula</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="name builtin">str</span><span class="punctuation">(</span><span class="name">struct</span><span class="operator">.</span><span class="name">get_tags</span><span class="punctuation">()[</span><span class="name">x</span><span class="punctuation">])</span> <span class="keyword">for</span> <span class="name">x</span> <span class="operator word">in</span> <span class="name">struct</span><span class="operator">.</span><span class="name">get_tags</span><span class="punctuation">()]</span>
+</pre>
+</div>
+<div class="section" id="create-database-file-and-store-your-own-data-in-it">
+<h3>Create database file and store your own data in it</h3>
+<pre class="code python literal-block">
+<span class="comment hashbang">#!/usr/bin/env python</span>
+
+<span class="keyword namespace">import</span> <span class="name namespace">httk</span><span class="operator">,</span> <span class="name namespace">httk.db</span>
+<span class="keyword namespace">from</span> <span class="name namespace">httk.atomistic</span> <span class="keyword namespace">import</span> <span class="name">Structure</span>
+
+<span class="keyword">class</span> <span class="name class">StructureIsEdible</span><span class="punctuation">(</span><span class="name">httk</span><span class="operator">.</span><span class="name">HttkObject</span><span class="punctuation">):</span>
+
+    <span class="name decorator">&#64;httk.httk_typed_init</span><span class="punctuation">({</span><span class="literal string single">'structure'</span><span class="punctuation">:</span> <span class="name">Structure</span><span class="punctuation">,</span> <span class="literal string single">'is_edible'</span><span class="punctuation">:</span> <span class="name builtin">bool</span><span class="punctuation">})</span>
+    <span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">structure</span><span class="punctuation">,</span> <span class="name">is_edible</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">structure</span> <span class="operator">=</span> <span class="name">structure</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">is_edible</span> <span class="operator">=</span> <span class="name">is_edible</span>
+
+<span class="name">backend</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">backend</span><span class="operator">.</span><span class="name">Sqlite</span><span class="punctuation">(</span><span class="literal string single">'example.sqlite'</span><span class="punctuation">)</span>
+<span class="name">store</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">db</span><span class="operator">.</span><span class="name">store</span><span class="operator">.</span><span class="name">SqlStore</span><span class="punctuation">(</span><span class="name">backend</span><span class="punctuation">)</span>
+
+<span class="name">tablesalt</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'NaCl.cif'</span><span class="punctuation">)</span>
+<span class="name">edible</span> <span class="operator">=</span> <span class="name">StructureIsEdible</span><span class="punctuation">(</span><span class="name">tablesalt</span><span class="punctuation">,</span> <span class="name builtin pseudo">True</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">edible</span><span class="punctuation">)</span>
+
+<span class="name">arsenic</span> <span class="operator">=</span> <span class="name">httk</span><span class="operator">.</span><span class="name">load</span><span class="punctuation">(</span><span class="literal string single">'As.cif'</span><span class="punctuation">)</span>
+<span class="name">edible</span> <span class="operator">=</span> <span class="name">StructureIsEdible</span><span class="punctuation">(</span><span class="name">arsenic</span><span class="punctuation">,</span> <span class="name builtin pseudo">False</span><span class="punctuation">)</span>
+<span class="name">store</span><span class="operator">.</span><span class="name">save</span><span class="punctuation">(</span><span class="name">edible</span><span class="punctuation">)</span>
+</pre>
+</div>
+</div>
+<div class="section" id="reporting-bugs">
+<h2>Reporting bugs</h2>
+<p>Please file bugs at the issue tracker at github (please search first to check if it is already reported):</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/rartino/httk/issues">https://github.com/rartino/httk/issues</a></li>
+</ul>
+</div>
+<div class="section" id="citing-httk-in-scientific-works">
+<h2>Citing <em>httk</em> in scientific works</h2>
+<p>This is presently the preferred citation:</p>
+<ul class="simple">
+<li>R. Armiento et al., The High-Throughput Toolkit (httk), <a class="reference external" href="http://httk.org/">http://httk.org/</a>; Armiento R. (2020) Database-Driven High-Throughput Calculations and Machine Learning Models for Materials Design. In: Schütt K., Chmiela S., von Lilienfeld O., Tkatchenko A., Tsuda K., Müller KR. (eds) Machine Learning Meets Quantum Physics. Lecture Notes in Physics, vol 968. Springer, Cham. <a class="reference external" href="https://doi.org/10.1007/978-3-030-40245-7_17">https://doi.org/10.1007/978-3-030-40245-7_17</a></li>
+</ul>
+<p>Since <em>httk</em> may call upon many other pieces of software quite
+transparently, it may not be initially obvious what other software
+should be cited. Unless configured otherwise, <em>httk</em> prints out a list
+of citations when the program ends. You should take note of those
+citations and include them in your publications if relevant.</p>
+</div>
+<div class="section" id="more-documentation">
+<h2>More documentation</h2>
+<p>More extensive documentation about <em>httk</em> is available at <a class="reference external" href="https://docs.httk.org">https://docs.httk.org</a></p>
+</div>
+</div>
+</div>
+
+  </main>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

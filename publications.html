@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Front page</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./resources/css/httkdemo.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3d11bda958.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+          document.querySelectorAll('pre.code').forEach((block) => {
+              hljs.highlightBlock(block);
+          });
+      });
+    </script>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-custom navbar-expand-md navbar-static-top border-bottom border-3 border-darkgrey">
+      <div class="btn-group">
+	<a class="btn btn-info top-left-dropdown" href="./index.html"><img style="height: 1.5em" src="img/httk-logo-curves.svg" alt="The High-Throughput Toolkit (httk)"></img></a>
+	<button type="button" class="btn btn-primary dropdown-toggle btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  <span class="caret"></span>
+	  <span class="sr-only"></span>
+	</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	  <a class="dropdown-item" href="http://openmaterialsdb.se">Open Materials Database</a>
+          <a class="dropdown-item" href="http://rickard.armiento.se">Rickard Armiento</a>
+	</div>
+      </div>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#header_tabs" aria-controls="header_tabs" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="./index.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle disable" href="./quickstart.html"> Quickstart</a>
+            <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="./quickstart-structures.html">Structures</a></li>
+	      <li><a class="dropdown-item" href="./quickstart-vectors.html">Vectors</a></li>
+              <li><a class="dropdown-item" href="./quickstart-databases.html">Databases</a></li>
+              <li><a class="dropdown-item" href="./quickstart-httkweb.html">Httk-web</a></li>
+	    </ul>
+          <li class="nav-item"><a class="nav-link" href="./publications.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://docs.httk.org/">Full docs <i class="fas fa-external-link-alt"></i></a></li>
+        </ul>
+	<!--ul class="navbar-nav nav ml-auto">
+	  
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Front page</a>
+            </li>
+	  
+            <li class="nav-item">
+              <a class="nav-link" href="./contact.html">Contact</a>
+            </li>
+	  
+	</ul-->
+      </div>
+    </nav>
+</section>
+<div class="container">
+  <main class="main-content">
+    <div class="document">
+
+<div class="section" id="publications">
+<h1>Publications</h1>
+<p>Here we collect publications that use/discuss/cite <em>httk</em>:</p>
+<ol class="arabic simple">
+<li><strong>Database-driven High-Throughput Calculations and Machine Learning Models for Materials Design,</strong> Armiento R. (2020) Database-Driven High-Throughput Calculations and Machine Learning Models for Materials Design. In: Schütt K., Chmiela S., von Lilienfeld O., Tkatchenko A., Tsuda K., Müller KR. (eds) Machine Learning Meets Quantum Physics. Lecture Notes in Physics, vol 968. Springer, Cham. <a class="reference external" href="https://doi.org/10.1007/978-3-030-40245-7_17">https://doi.org/10.1007/978-3-030-40245-7_17</a> (2020).</li>
+<li><strong>ADAQ: Automatic workflows for magneto-optical properties of point defects in semiconductors,</strong> J Davidsson, V Ivády, R Armiento, IA Abrikosov, arXiv preprint arXiv:2008.12539 (2020).</li>
+<li><strong>Theoretical study of the phase transitions and electronic structure of (Zr 0.5, Mg 0.5) N and (Hf 0.5, Mg 0.5) N</strong>, MA Gharavi, R Armiento, B Alling, P Eklund Journal of Materials Science, 1-8 (2020).</li>
+<li><strong>Identification of divacancy and silicon vacancy qubits in 6H-SiC,</strong> Joel Davidsson, Viktor Ivády, Rickard Armiento, Takeshi Ohshima, NT Son, Adam Gali, Igor A Abrikosov, Applied Physics Letters 114 (11), 112107 (2019).</li>
+<li><strong>Theoretical study of phase stability, crystal and electronic structure of MeMgN2 (Me = Ti, Zr, Hf) compounds</strong>, MA Gharavi, R Armiento, B Alling, P Eklund, Journal of materials science 53 (6), 4294-4305 (2018).</li>
+<li><strong>First principles predictions of magneto-optical data for semiconductor point defect identification: the case of divacancy defects in 4H–SiC</strong>, J Davidsson, V Ivády, R Armiento, NT Son, A Gali, IA Abrikosov New Journal of Physics 20 (2), 023035 (2018).</li>
+<li><strong>Machine Learning Energies of 2 M Elpasolite (ABC2D6) Crystals,</strong> FA Faber, A Lindmaa, OA Von Lilienfeld, R Armiento, Physical review letters 117 (13), 135502 (2016).</li>
+<li><strong>Strong piezoelectric response in stable TiZnN2, ZrZnN2, and HfZnN2 found by ab initio high-throughput approach,</strong> C Tholander, CBA Andersson, R Armiento, F Tasnadi, B Alling Journal of Applied Physics 120 (22), 225102 (2016).</li>
+<li><strong>Crystal structure representations for machine learning models of formation energies</strong>, F Faber, A Lindmaa, OA von Lilienfeld, R Armiento, International Journal of Quantum Chemistry 115 (16), 1094-1101 (2015).</li>
+</ol>
+</div>
+</div>
+
+  </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
