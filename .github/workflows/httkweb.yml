@@ -20,6 +20,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: httk/httk
+        ref: devel
         path: httk
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -28,12 +29,10 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install python3-docutils
-    - name: Initialize httk
+    - name: Generate website
       run: |
         export PYTHONPATH=$PWD/httk/src
         export PATH=$PWD/httk/bin
-    - name: Generate website
-      run: |
         cd web
         python3 ./publish.py
     - name: Publish website
