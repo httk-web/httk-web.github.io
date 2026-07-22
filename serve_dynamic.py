@@ -1,5 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from httk.httkweb import serve
+from pathlib import Path
 
-serve("src", port=8080, config="config_dynamic")
+from httk.web import serve
+
+ROOT = Path(__file__).parent
+serve(ROOT / "src", host="127.0.0.1", port=8080, config_name="config_dynamic")
