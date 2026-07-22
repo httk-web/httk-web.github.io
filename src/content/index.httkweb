@@ -63,15 +63,15 @@ Loading a ``.cif`` file directly into an httk₂ ``Structure`` object is still u
 Create structures in code
 +++++++++++++++++++++++++
 
-In httk₂, a ``Structure`` is created from an explicit basis, a list of sites in reduced coordinates, a list of species (given as OPTIMADE-style species dictionaries), and a per-site list naming the species at each site. Here is a conventional cubic rock-salt (NaCl) cell:
+In httk₂, a ``Structure`` is created from an explicit cell, a list of sites in reduced coordinates, a list of species (given as OPTIMADE-style species dictionaries), and a per-site list naming the species at each site. Here is a conventional cubic rock-salt (NaCl) cell:
 
 .. code:: python
 
   from httk.atomistic import Structure, StructurePrimitiveView
 
-  basis = [[5.64, 0.0, 0.0],
-           [0.0, 5.64, 0.0],
-           [0.0, 0.0, 5.64]]
+  cell = [[5.64, 0.0, 0.0],
+          [0.0, 5.64, 0.0],
+          [0.0, 0.0, 5.64]]
 
   sites = [[0.0, 0.0, 0.0], [0.5, 0.5, 0.0], [0.5, 0.0, 0.5], [0.0, 0.5, 0.5],
            [0.5, 0.5, 0.5], [0.0, 0.0, 0.5], [0.0, 0.5, 0.0], [0.5, 0.0, 0.0]]
@@ -83,7 +83,7 @@ In httk₂, a ``Structure`` is created from an explicit basis, a list of sites i
 
   species_at_sites = ["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"]
 
-  struct = Structure(basis=basis, sites=sites,
+  struct = Structure(cell=cell, sites=sites,
                      species=species, species_at_sites=species_at_sites)
 
   print("Species:", [s.name for s in struct.species])
