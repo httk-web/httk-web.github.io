@@ -16,3 +16,6 @@ for filename in os.listdir("docs"):
             os.unlink(f)
 
 publish("src","docs",'http://127.0.0.1/')
+
+os.makedirs("docs/v1", exist_ok=True)
+publish("src-v1","docs/v1",'http://127.0.0.1/v1/')

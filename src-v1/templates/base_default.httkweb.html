@@ -36,7 +36,6 @@
 	</button>
 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 	  <a class="dropdown-item" href="http://openmaterialsdb.se">Open Materials Database</a>
-	  <a class="dropdown-item" href="/v1/">httk v1 (legacy)</a>
           <a class="dropdown-item" href="http://rickard.armiento.se">Rickard Armiento</a>
 	</div>
       </div>
@@ -47,27 +46,15 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav nav ml-auto">
           <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/index.html">About</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle disable" href="{page.relbaseurl}/quickstart.html"> Quickstart</a>
-            <ul class="dropdown-menu">
-	      <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-structures.html">Structures</a></li>
-	      <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-vectors.html">Vectors</a></li>
-              <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-databases.html">Databases</a></li>
-              <li><a class="dropdown-item" href="{page.relbaseurl}/quickstart-httkweb.html">Httk-web</a></li>
-	    </ul>
-          <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/publications.html">Publications</a></li>
-          <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://docs.httk.org/">Full docs <i class="fas fa-external-link-alt"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="{page.relbaseurl}/quickstart.html">Quickstart</a></li>
+          <li class="nav-item"><a class="nav-link" href="/"><i>httk</i><sub>2</sub> main site</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://olddocs.httk.org/">Full docs <i class="fas fa-external-link-alt"></i></a></li>
         </ul>
-	<!--ul class="navbar-nav nav ml-auto">
-	  {menuitems:repeat::
-            <li class="nav-item">
-              <a class="nav-link" href="{page.relbaseurl}/{{pages:call:{{item}}:relurl}}">{{pages:call:{{item}}:title}}</a>
-            </li>
-	  }
-	</ul-->
       </div>
     </nav>
+    <div class="v1-banner">
+      This is the legacy site for <i>httk</i> version 1. <i>httk</i><sub>2</sub> is now the main version &mdash; go to <a href="/">httk.org</a>.
+    </div>
 </section>
 {content}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,6 +1,6 @@
 :Title: Front page
-:Date: 2020-09-27
-:Version: 1
+:Date: 2026-07-21
+:Version: 2
 :Author: Rickard Armiento
 :Template: front
 :Base_template: base_default
@@ -9,51 +9,37 @@
 The High-Throughput Toolkit (*httk*)
 ====================================
 
+.. role:: notyet
+
 The High-Throughput Toolkit (*httk*) is a toolkit for preparing and running calculations, analyzing the results, and storing results in global and/or personalized databases. *httk* is presently targeted at atomistic calculations in materials science and electronic structure, but aims to be extended into a library useful also outside those areas.
 
-*httk* was created in 2014.
+*httk* was created in 2014. This site describes **httk₂**, the current main version.
 
-..
-  It is a design guideline of *httk* that its central functionality is implemented in pure Python without external dependencies. However, it does support a number of integrations with other libraries.
+httk₂ is a rewrite of *httk* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native ``httk.*`` namespace (``httk.core``, ``httk.io``, ``httk.atomistic``, and more). This lets you install and depend on only the parts you need, while ``httk.core`` provides the shared plugin, loading, and view/backend machinery the other modules build on.
 
-  *httk* contains a number of subcomponents written in pure Python that may be useful in other contexts:
-
-  - A general workflow manager that allows running sophisticated ensemble jobs on supercomputers over thousands of CPU cores, just as well as executing multi-stage operations on your own computer.
-
-  - A strong object relational mapper that allow storing general Python objects in an sql database and do queries on them.
-
-  - A deterministic arbitrary precision numerical library with arrays.
-
-  - A UI library based on html and templates that allows using the same Python code for websites and user interfaces.
+*Looking for httk version 1?* The legacy site is available at `/v1/ </v1/index.html>`__.
 
 Installation
 ------------
 
-* If you just want to use *httk*, this should work:
+The ``httk2`` metapackage — which installs a sensible selection of modules in one step — is currently being set up, so the two commands below are :notyet:`not yet functional`. For working, per-module installation instructions, see the full documentation at `https://docs.httk.org <https://docs.httk.org>`__.
+
+* Clone the source code repository and install it:
 
   .. code:: bash
 
-     pip install httk
+     git clone https://github.com/httk/httk2.git
+     pip install ./httk2
 
-  - If your ``pip`` works as it should, you should be able to do ``import httk`` in Python, as well as run the ``httk`` command line tool.
+  :notyet:`(not yet functional — see the note above)`
 
-  ..
-
-* An alternative is to clone the master branch of our source code repository, which is meant to always give you the latest release:
-
-  .. code:: bash
-
-       git clone https://github.com/httk/httk
-
-  Then, every time you want to use *httk* you need to initialize the environtment with:
+* Or, once released, install the metapackage from PyPI:
 
   .. code:: bash
 
-       source /path/to/httk/init.shell
+     pip install httk2
 
-  (Which, of course, can be put in your shell initialization scripts)
-
-* For more installation alternatives, see the `full documentation <https://docs.httk.org/en/latest/>`__.
+  :notyet:`(not yet functional — see the note above)`
 
 Quickstart
 ----------
@@ -67,128 +53,64 @@ Quickstart
   - `UI and websites <quickstart-httkweb.html>`__
   - `Databases <quickstart-databases.html>`__
 
-* The *httk* installation also contains the subdirectories ``Examples`` and ``Tutorial/step1``, ``/step2``, etc.
-
 A few simple usage examples
 ---------------------------
 
-Load a cif file or poscar
-+++++++++++++++++++++++++
+Load a cif file
++++++++++++++++
 
-This is a very simple example of just loading a structure from a ``.cif`` file and writing out some information about it.
-
-.. code:: python
-
-  import httk
-
-  struct = httk.load("example.cif")
-
-  print("Formula:", struct.formula)
-  print("Volume:", float(struct.uc_volume))
-  print("Assignments:", struct.uc_formula_symbols)
-  print("Counts:", struct.uc_counts )
-  print("Coords:", struct.uc_reduced_coords)
-
-Running this generates the output::
-
-  ('Formula:', 'BO2Tl')
-  ('Volume', 509.24213999999984)
-  ('Assignments',['B', 'O', 'Tl'])
-  ('Counts:', [8, 16, 8])
-  ('Coords', FracVector(((1350,4550,4250) , ... , ,10000)))
-
-..
+Loading a ``.cif`` file directly into an httk₂ ``Structure`` object is still under development — **TBA**. (httk₂ can already parse cif files into raw data via ``httk.core.load``, but assembling a ``Structure`` from that parsed data is being ported.)
 
 Create structures in code
 +++++++++++++++++++++++++
 
-.. code:: python
-
-  from httk.atomistic import Structure
-
-  cell = [[1.0, 0.0, 0.0] ,
-          [0.0, 1.0, 0.0] ,
-          [0.0, 0.0, 1.0]]
-  coordgroups = [[
-                    [0.5, 0.5, 0.5]
-                 ],[
-                    [0.0, 0.0, 0.0]
-                 ],[
-                    [0.5, 0.0, 0.0], [0.0, 0.5, 0.0], [0.0, 0.0, 0.5]
-                 ]]
-
-  assignments = ['Pb' ,'Ti' ,'O']
-  volume =62.79
-  struct = Structure.create(uc_cell = cell,
-               uc_reduced_coordgroups = coordgroups,
-               assignments = assignments,
-               uc_volume = volume)
-
-
-Create database file, store a structure in it, and retrive it
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+In httk₂, a ``Structure`` is created from an explicit basis, a list of sites in reduced coordinates, a list of species (given as OPTIMADE-style species dictionaries), and a per-site list naming the species at each site. Here is a conventional cubic rock-salt (NaCl) cell:
 
 .. code:: python
 
-  import httk, httk.db
-  from httk.atomistic import Structure
+  from httk.atomistic import Structure, StructurePrimitiveView
 
-  backend = httk.db.backend.Sqlite('example.sqlite')
-  store = httk.db.store.SqlStore(backend)
+  basis = [[5.64, 0.0, 0.0],
+           [0.0, 5.64, 0.0],
+           [0.0, 0.0, 5.64]]
 
-  tablesalt = httk.load('NaCl.cif')
-  store.save(tablesalt)
+  sites = [[0.0, 0.0, 0.0], [0.5, 0.5, 0.0], [0.5, 0.0, 0.5], [0.0, 0.5, 0.5],
+           [0.5, 0.5, 0.5], [0.0, 0.0, 0.5], [0.0, 0.5, 0.0], [0.5, 0.0, 0.0]]
 
-  arsenic = httk.load('As.cif')
-  store.save(arsenic)
+  species = [
+      {"name": "Na", "chemical_symbols": ["Na"], "concentration": [1.0]},
+      {"name": "Cl", "chemical_symbols": ["Cl"], "concentration": [1.0]},
+  ]
 
-  # Search for anything with Na
-  search = store.searcher()
-  search_struct = search.variable(Structure)
-  search.add(search_struct.formula_symbols.is_in('Na'))
+  species_at_sites = ["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"]
 
-  search.output(search_struct, 'structure')
+  struct = Structure(basis=basis, sites=sites,
+                     species=species, species_at_sites=species_at_sites)
 
-  for match, header in list(search):
-      struct = match[0]
-      print "Found structure", struct.formula, [str(struct.get_tags()[x]) for x in struct.get_tags()]
+  print("Species:", [s.name for s in struct.species])
+  print("Number of sites:", len(struct.sites))
 
+  # A view presents the same structure as a primitive (lattice, positions, numbers) triple:
+  lattice, positions, numbers = StructurePrimitiveView(struct)
+  print("Atomic numbers:", numbers)
 
+Running this generates the output::
 
-Create database file and store your own data in it
-++++++++++++++++++++++++++++++++++++++++++++++++++
-.. code:: python
+  Species: ['Na', 'Cl']
+  Number of sites: 8
+  Atomic numbers: (11, 11, 11, 11, 17, 17, 17, 17)
 
-  #!/usr/bin/env python
+Databases
++++++++++
 
-  import httk, httk.db
-  from httk.atomistic import Structure
-
-  class StructureIsEdible(httk.HttkObject):
-
-      @httk.httk_typed_init({'structure': Structure, 'is_edible': bool})
-      def __init__(self, structure, is_edible):
-	  self.structure = structure
-	  self.is_edible = is_edible
-
-  backend = httk.db.backend.Sqlite('example.sqlite')
-  store = httk.db.store.SqlStore(backend)
-
-  tablesalt = httk.load('NaCl.cif')
-  edible = StructureIsEdible(tablesalt, True)
-  store.save(edible)
-
-  arsenic = httk.load('As.cif')
-  edible = StructureIsEdible(arsenic, False)
-  store.save(edible)
-
+Database storage and querying is still **TBA** — under development for httk₂.
 
 Reporting bugs
 --------------
 
-Please file bugs at the issue tracker at github (please search first to check if it is already reported):
+Please file bugs at the issue tracker of the relevant module repository within the httk GitHub organization (please search first to check if it is already reported):
 
-* https://github.com/rartino/httk/issues
+* https://github.com/httk
 
 Citing *httk* in scientific works
 ---------------------------------
@@ -207,4 +129,3 @@ More documentation
 ------------------
 
 More extensive documentation about *httk* is available at https://docs.httk.org
-

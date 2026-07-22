@@ -1,63 +1,54 @@
 :Title: Front page
-:Date: 2018-08-16
-:Version: 1
+:Date: 2026-07-21
+:Version: 2
 :Author: Rickard Armiento
 :Template: default
 :Base_template: base_default
 
 =============================
-*httk* quickstart: structutes
+*httk* quickstart: structures
 =============================
 
 Load a cif file or poscar
 -------------------------
 
-This is a very simple example of just loading a structure from a ``.cif`` file and writing out some information about it.
-
-.. code:: python
-
-  import httk
-
-  struct = httk.load("example.cif")
-
-  print("Formula:", struct.formula)
-  print("Volume:", float(struct.uc_volume))
-  print("Assignments:", struct.uc_formula_symbols)
-  print("Counts:", struct.uc_counts )
-  print("Coords:", struct.uc_reduced_coords)
-
-Running this generates the output::
-
-  ('Formula:', 'BO2Tl')
-  ('Volume', 509.24213999999984)
-  ('Assignments',['B', 'O', 'Tl'])
-  ('Counts:', [8, 16, 8])
-  ('Coords', FracVector(((1350,4550,4250) , ... , ,10000)))
-
-..
+Loading a ``.cif`` file directly into an httk₂ ``Structure`` object is still under development — **TBA**. (httk₂ can already parse cif files into raw data via ``httk.core.load``, but assembling a ``Structure`` from that parsed data is being ported.)
 
 Create structures in code
 -------------------------
 
+In httk₂, a ``Structure`` is created from an explicit basis, a list of sites in reduced coordinates, a list of species (given as OPTIMADE-style species dictionaries), and a per-site list naming the species at each site. Here is a conventional cubic rock-salt (NaCl) cell:
+
 .. code:: python
 
-  from httk.atomistic import Structure
+  from httk.atomistic import Structure, StructurePrimitiveView
 
-  cell = [[1.0, 0.0, 0.0] ,
-          [0.0, 1.0, 0.0] ,
-          [0.0, 0.0, 1.0]]
-  coordgroups = [[
-                    [0.5, 0.5, 0.5]
-                 ],[
-                    [0.0, 0.0, 0.0]
-                 ],[
-                    [0.5, 0.0, 0.0], [0.0, 0.5, 0.0], [0.0, 0.0, 0.5]
-                 ]]
+  basis = [[5.64, 0.0, 0.0],
+           [0.0, 5.64, 0.0],
+           [0.0, 0.0, 5.64]]
 
-  assignments = ['Pb' ,'Ti' ,'O']
-  volume =62.79
-  struct = Structure.create(uc_cell = cell,
-               uc_reduced_coordgroups = coordgroups,
-               assignments = assignments,
-               uc_volume = volume)
+  sites = [[0.0, 0.0, 0.0], [0.5, 0.5, 0.0], [0.5, 0.0, 0.5], [0.0, 0.5, 0.5],
+           [0.5, 0.5, 0.5], [0.0, 0.0, 0.5], [0.0, 0.5, 0.0], [0.5, 0.0, 0.0]]
 
+  species = [
+      {"name": "Na", "chemical_symbols": ["Na"], "concentration": [1.0]},
+      {"name": "Cl", "chemical_symbols": ["Cl"], "concentration": [1.0]},
+  ]
+
+  species_at_sites = ["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"]
+
+  struct = Structure(basis=basis, sites=sites,
+                     species=species, species_at_sites=species_at_sites)
+
+  print("Species:", [s.name for s in struct.species])
+  print("Number of sites:", len(struct.sites))
+
+  # A view presents the same structure as a primitive (lattice, positions, numbers) triple:
+  lattice, positions, numbers = StructurePrimitiveView(struct)
+  print("Atomic numbers:", numbers)
+
+Running this generates the output::
+
+  Species: ['Na', 'Cl']
+  Number of sites: 8
+  Atomic numbers: (11, 11, 11, 11, 17, 17, 17, 17)
