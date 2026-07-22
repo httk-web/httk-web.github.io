@@ -1,6 +1,6 @@
 :Title: Front page
-:Date: 2018-08-16
-:Version: 1
+:Date: 2026-07-21
+:Version: 2
 :Author: Rickard Armiento
 :Template: default
 :Base_template: base_default
@@ -12,6 +12,4 @@
 Working with vectors
 --------------------
 
-Will be added.
-
-
+The *httk* exact vector representation is being ported to httk₂ — **TBA**.
