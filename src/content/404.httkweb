@@ -1,10 +1,7 @@
 ---
-Title: Contact
-Date: 2018-08-16
-Version: 1
-Author: Rickard Armiento
-Template: 404
+title: Contact
+template: 404
+base_template: base_default
 ---
+
 The page could not be found.
-
-

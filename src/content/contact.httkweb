@@ -1,9 +1,7 @@
 ---
-Title: Contact
-Date: 2018-08-16
-Version: 1
-Author: Rickard Armiento
-Template: default
+title: Contact
+template: default
+base_template: base_default
 ---
 
 Contact
@@ -11,4 +9,3 @@ Contact
 
 Our primary point of contact is email to: rickard [at] httk.org
 (where [at] is replaced by @)
-

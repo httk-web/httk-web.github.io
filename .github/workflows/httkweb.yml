@@ -13,24 +13,22 @@ jobs:
 
     steps:
     - name: Checkout httk-web
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: web
-    - name: Checkout httk
-      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        repository: httk/httk
-        ref: devel
-        path: httk
+        python-version: '3.12'
     - name: Install dependencies
       run: |
-        sudo apt-get install python3 python3-docutils
+        cd web
+        pip install .
+        cd ..
     - name: Generate website
       run: |
-        export PYTHONPATH=$PWD/httk/src:$PYTHONPATH
-        export PATH=$PWD/httk/bin:$PATH
         cd web
-        python3 ./publish.py
+        python3 ./publish_static.py
         cd ..
     - name: Publish website
       run: |
@@ -40,7 +38,7 @@ jobs:
         git fetch origin gh-pages
         git checkout gh-pages
         mv docs ../gh-pages
-        mv .git ../gh-pages        
+        mv .git ../gh-pages
         cd ../gh-pages
         touch .nojekyll
         git add .
