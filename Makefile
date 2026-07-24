@@ -13,6 +13,7 @@ serve_static: generate
 	cd public && $(PYTHON) -m http.server 8080
 
 clean:
+	rm -rf public
 	find . -name "*.pyc" -print0 | xargs -0 rm -f
 	find . -name "*~" -print0 | xargs -0 rm -f
 	find . -name "__pycache__" -print0 | xargs -0 rm -rf
