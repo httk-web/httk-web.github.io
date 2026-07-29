@@ -11,4 +11,5 @@ base_template: base_default
 Create a simple static website
 ------------------------------
 
-The web/UI stack is being ported to httk₂ — **TBA**.
+*httk-web* provides dynamic serving and static publishing under ``httk.web``.
+See the `web documentation <https://docs.httk.org/httk-web/>`__.

@@ -11,4 +11,5 @@ base_template: base_default
 Working with vectors
 --------------------
 
-The *httk* exact vector representation is being ported to httk₂ — **TBA**.
+*httk-core* provides exact rational and square-root vector types. See the
+`vector documentation <https://docs.httk.org/httk-core/>`__.

@@ -8,8 +8,6 @@ base_template: base_default
 The High-Throughput Toolkit (*httk*)
 ====================================
 
-.. role:: notyet
-
 The High-Throughput Toolkit (*httk*) is a toolkit for preparing and running calculations, analyzing the results, and storing results in global and/or personalized databases. *httk* is presently targeted at atomistic calculations in materials science and electronic structure, but aims to be extended into a library useful also outside those areas.
 
 *httk* was created in 2014. This site describes **httk₂**, the current main version.
@@ -21,7 +19,7 @@ httk₂ is a rewrite of *httk* as a **modular toolkit**: instead of a single mon
 Installation
 ------------
 
-The ``httk2`` metapackage — which installs a sensible selection of modules in one step — is currently being set up, so the two commands below are :notyet:`not yet functional`. For working, per-module installation instructions, see the full documentation at `https://docs.httk.org <https://docs.httk.org>`__.
+The ``httk2`` metapackage installs a standard selection of modules in one step.
 
 * Clone the source code repository and install it:
 
@@ -30,15 +28,11 @@ The ``httk2`` metapackage — which installs a sensible selection of modules in 
      git clone https://github.com/httk/httk2.git
      pip install ./httk2
 
-  :notyet:`(not yet functional — see the note above)`
-
-* Or, once released, install the metapackage from PyPI:
+* Or install the metapackage from PyPI:
 
   .. code:: bash
 
      pip install httk2
-
-  :notyet:`(not yet functional — see the note above)`
 
 Quickstart
 ----------
@@ -58,7 +52,8 @@ A few simple usage examples
 Load a cif file
 +++++++++++++++
 
-Loading a ``.cif`` file directly into an httk₂ ``Structure`` object is still under development — **TBA**. (httk₂ can already parse cif files into raw data via ``httk.core.load``, but assembling a ``Structure`` from that parsed data is being ported.)
+With *httk-io* and *httk-atomistic* installed, ``httk.core.load`` loads CIF,
+POSCAR, and CONTCAR files directly into httk₂ ``Structure`` objects.
 
 Create structures in code
 +++++++++++++++++++++++++
@@ -102,7 +97,8 @@ Running this generates the output::
 Databases
 +++++++++
 
-Database storage and querying is still **TBA** — under development for httk₂.
+*httk-data* provides relational storage and querying over SQLite and DuckDB.
+See the `database documentation <https://docs.httk.org/httk-data/>`__.
 
 Reporting bugs
 --------------

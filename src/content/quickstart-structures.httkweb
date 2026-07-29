@@ -11,7 +11,8 @@ base_template: base_default
 Load a cif file or poscar
 -------------------------
 
-Loading a ``.cif`` file directly into an httk₂ ``Structure`` object is still under development — **TBA**. (httk₂ can already parse cif files into raw data via ``httk.core.load``, but assembling a ``Structure`` from that parsed data is being ported.)
+With *httk-io* and *httk-atomistic* installed, ``httk.core.load`` loads CIF,
+POSCAR, and CONTCAR files directly into httk₂ ``Structure`` objects.
 
 Create structures in code
 -------------------------

@@ -11,9 +11,11 @@ base_template: base_default
 Create database file, store a structure in it, and retrive it
 -------------------------------------------------------------
 
-Database storage and querying is being ported to httk₂ — **TBA**.
+*httk-data* provides relational storage and querying over SQLite and DuckDB.
+See the `database documentation <https://docs.httk.org/httk-data/>`__.
 
 Create database file and store your own data in it
 --------------------------------------------------
 
-Storing your own typed objects in an httk₂ database is being ported — **TBA**.
+The storage API accepts ordinary frozen dataclasses. See the
+`database documentation <https://docs.httk.org/httk-data/>`__.
