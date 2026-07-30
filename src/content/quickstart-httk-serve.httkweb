@@ -11,5 +11,5 @@ base_template: base_default
 Create a simple static website
 ------------------------------
 
-*httk-web* provides dynamic serving and static publishing under ``httk.web``.
-See the `web documentation <https://docs.httk.org/httk-web/>`__.
+*httk-serve* provides dynamic serving and static publishing under ``httk.serve.web``.
+See the `serve documentation <https://docs.httk.org/httk-serve/>`__.

@@ -5,13 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "httk-website"
 version = "0.1.0"
-description = "The httk.org website, generated with the httk-web (httk.web) static site generator."
+description = "The httk.org website, generated with the httk-serve (httk.serve.web) static site generator."
 readme = "README.md"
 license = "AGPL-3.0-or-later"
 requires-python = ">=3.12"
 authors = [{ name = "Rickard Armiento", email = "gitcommits@armiento.net" }]
 dependencies = [
-  "httk-web @ git+https://github.com/httk/httk-web@develop",
+  "httk-serve @ git+https://github.com/httk/httk-serve@main",
 ]
 classifiers = [
   "Operating System :: OS Independent",
@@ -57,5 +57,5 @@ explicit_package_bases = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = ["httk.web", "httk.web.*"]
+module = ["httk.serve.web", "httk.serve.web.*"]
 ignore_missing_imports = true

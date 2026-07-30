@@ -43,7 +43,7 @@ Quickstart
 
   - `Atomic structures (i.e., crystal structures / slabs / molecules) <quickstart-structures.html>`__
   - `Vectors <quickstart-vectors.html>`__
-  - `UI and websites <quickstart-httkweb.html>`__
+  - `UI and websites <quickstart-httk-serve.html>`__
   - `Databases <quickstart-databases.html>`__
 
 A few simple usage examples
