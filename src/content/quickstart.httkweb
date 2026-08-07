@@ -22,6 +22,12 @@ Install the ``httk2`` metapackage from a local checkout or from PyPI:
 
      pip install httk2
 
+Either way this installs the complete standard set of httk₂ modules with their
+recommended default features. Developers can instead track the latest
+development state of all modules via the metapackage's ``dev-main`` branch and
+its Makefile helpers; see the
+`httk2 README <https://github.com/httk/httk2#readme>`__ for details.
+
 Try it out
 ----------
 

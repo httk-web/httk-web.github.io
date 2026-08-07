@@ -34,6 +34,14 @@ The ``httk2`` metapackage installs a standard selection of modules in one step.
 
      pip install httk2
 
+This installs the complete standard set of httk₂ modules, each with its
+recommended default features. For development, the ``httk2`` repository also
+provides a ``dev-main`` branch that installs the latest development state of
+every module directly from GitHub, and Makefile helpers that check out all
+module repositories and install them into your virtual environment in one
+step; see the `httk2 README <https://github.com/httk/httk2#readme>`__ for
+details.
+
 Quickstart
 ----------
 
