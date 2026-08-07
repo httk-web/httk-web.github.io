@@ -1,5 +1,5 @@
 ---
-title: Front page
+title: "Quickstart: vectors"
 template: default
 base_template: base_default
 ---
@@ -8,8 +8,109 @@ base_template: base_default
 *httk* quickstart: vectors
 ==========================
 
-Working with vectors
---------------------
+*httk-core* provides exact vector types: ``FracVector`` for rational tensors
+and ``SurdVector`` for values in the square-root field (needed for, e.g.,
+hexagonal cells). All algebra is exact; floats appear only when you explicitly
+ask for them.
 
-*httk-core* provides exact rational and square-root vector types. See the
-`vector documentation <https://docs.httk.org/httk-core/>`__.
+Exact rational vectors
+----------------------
+
+``FracVector.create`` accepts nested lists of integers, fractions, strings,
+and decimal numbers. A ``FracVector`` is stored as integer nominators over one
+shared denominator, and is immutable and hashable:
+
+.. code:: python
+
+  from httk.core import FracVector
+
+  a = FracVector.create([["1/3", "2/3", 0], [0, "1/2", "1/2"], ["1/4", 0, "3/4"]])
+
+  print(a * 6)
+  print("det:", a.det().simplify())
+  print("inverse:", a.inv().simplify())
+  print("check:", (a * a.inv()).simplify())
+
+Running this generates the output::
+
+  (1/12)*((24, 48, 0), (0, 36, 36), (18, 0, 54))
+  det: (1/24)*5
+  inverse: (1/5)*((9, -12, 8), (3, 6, -4), (-3, 4, 4))
+  check: (1/1)*((1, 0, 0), (0, 1, 0), (0, 0, 1))
+
+Unlike floating point, exact arithmetic never accumulates rounding errors:
+
+.. code:: python
+
+  v = FracVector.create(["1/10", "2/10", "3/10"])
+  print((v + v + v).simplify())
+  print(0.1 + 0.2 + 0.3)
+
+Running this generates the output::
+
+  (1/10)*(3, 6, 9)
+  0.6000000000000001
+
+Floats are an explicit presentation boundary: ``a.to_floats()`` returns nested
+plain-float lists, and exact scalars support ``float(...)``.
+
+Exact square roots
+------------------
+
+``exactmath`` holds exact and correctly-rounded transcendentals. With
+``exact=True``, ``sqrt`` returns an exact ``SurdScalar``, and algebra in the
+square-root field stays exact:
+
+.. code:: python
+
+  from httk.core import exactmath
+
+  r3 = exactmath.sqrt(3, exact=True)
+  print(r3 * r3)
+  print((1 + r3) * (1 - r3))
+
+Running this generates the output::
+
+  3
+  -2
+
+Rational results are exact ``Fraction`` values, and ``digits=`` gives correctly
+rounded decimals to any precision:
+
+.. code:: python
+
+  from fractions import Fraction
+
+  print(exactmath.sqrt(Fraction(9, 4)))
+  print(exactmath.pi(digits=30))
+
+Running this generates the output::
+
+  3/2
+  3.14159265358979323846264338328
+
+Exact cells
+-----------
+
+This is what makes httk₂ structures exact: a hexagonal cell basis involves
+``sqrt(3)``, which the surd field represents without approximation:
+
+.. code:: python
+
+  from httk.atomistic import CellParams, CellView
+
+  hexagonal = CellView(CellParams([3, 3, 5, 90, 90, 120]))
+  print(hexagonal.basis)
+  print("volume:", hexagonal.volume, "=", float(hexagonal.volume))
+
+Running this generates the output::
+
+  (1/2)*((6, 0, 0), (-3, 0, 0), (0, 0, 10)) + sqrt(3)*(1/2)*((0, 0, 0), (0, 3, 0), (0, 0, 0))
+  volume: (45/2)*sqrt(3) = 38.97114317029974
+
+More
+----
+
+See the *httk-core* vector documentation at
+https://docs.httk.org/httk-core/ for the full vector family, including the
+zero-copy numpy views.

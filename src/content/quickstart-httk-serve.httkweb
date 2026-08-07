@@ -1,5 +1,5 @@
 ---
-title: Front page
+title: "Quickstart: websites and UI"
 template: default
 base_template: base_default
 ---
@@ -8,8 +8,78 @@ base_template: base_default
 *httk* quickstart: websites and UI
 ==================================
 
+*httk-serve* provides dynamic serving and static publishing of websites under
+``httk.serve.web``, and generic OPTIMADE protocol serving under
+``httk.serve.optimade``. This very website is generated with it.
+
 Create a simple static website
 ------------------------------
 
-*httk-serve* provides dynamic serving and static publishing under ``httk.serve.web``.
-See the `serve documentation <https://docs.httk.org/httk-serve/>`__.
+A site is a source directory with content pages and Jinja2 templates::
+
+  mysite/
+    src/
+      content/
+        index.md
+      templates/
+        base_default.html.j2
+        default.html.j2
+
+Content pages are Markdown or reStructuredText with a small front-matter
+header:
+
+.. code:: markdown
+
+  ---
+  title: My first httk-serve page
+  template: default
+  ---
+
+  # Hello from httk-serve
+
+  Pages are Markdown or reStructuredText rendered through Jinja2 templates.
+
+Serve it live during development, with pages re-rendered per request:
+
+.. code:: python
+
+  from pathlib import Path
+
+  from httk.serve.web import serve
+
+  ROOT = Path(__file__).parent
+  serve(ROOT / "src", port=8080)
+
+And publish the same source tree as a static website, ready for any static
+host such as GitHub Pages:
+
+.. code:: python
+
+  from pathlib import Path
+
+  from httk.serve.web import publish
+
+  ROOT = Path(__file__).parent
+  publish(ROOT / "src", ROOT / "public", "https://example.org/")
+
+Complete runnable site examples — including a blog and a search application —
+are in the ``examples/modern/`` directory of the `httk-serve repository
+<https://github.com/httk/httk-serve>`__. The source of this website itself is
+another real-world example, at https://github.com/httk/httk-web.github.io.
+
+Serve data over OPTIMADE
+------------------------
+
+``httk.serve.optimade`` is a generic implementation of the `OPTIMADE
+<https://www.optimade.org/>`__ protocol: the served entry types, properties,
+and records are supplied through the ``httk.core.EntryProvider`` contract, so
+any data source — including an *httk-data* store of structures — can be exposed
+as a standard OPTIMADE API. Reusable browser widgets (``httk.serve.table``,
+``httk.serve.optimade_table``) render paged result tables in generated sites.
+
+More
+----
+
+See the `serve documentation <https://docs.httk.org/httk-serve/>`__ for
+widgets, trusted assets, the ASGI runtime, and the OPTIMADE serving and client
+layers.

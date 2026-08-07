@@ -49,56 +49,84 @@ Quickstart
 A few simple usage examples
 ---------------------------
 
-Load a cif file
-+++++++++++++++
+Load a structure file
++++++++++++++++++++++
 
 With *httk-io* and *httk-atomistic* installed, ``httk.core.load`` loads CIF,
-POSCAR, and CONTCAR files directly into httk₂ ``Structure`` objects.
+POSCAR, and CONTCAR files (including compressed variants such as
+``CONTCAR.bz2``) directly into httk₂ structure objects:
+
+.. code:: python
+
+  from httk.core import load
+
+  structure = load("example.cif")
+
+  print("Formula:", structure.formula)
+  print("Volume:", float(structure.cell.volume))
+
+A CIF loads as an ``ASUStructure`` (the file's native symmetry representation);
+POSCAR/CONTCAR load as a ``UnitcellStructure``. Converting between
+representations is done by constructing a view, e.g.
+``UnitcellStructureView(structure)`` for the full expanded cell.
 
 Create structures in code
 +++++++++++++++++++++++++
 
-In httk₂, a ``Structure`` is created from an explicit cell, a list of sites in reduced coordinates, a list of species (given as OPTIMADE-style species dictionaries), and a per-site list naming the species at each site. Here is a conventional cubic rock-salt (NaCl) cell:
+In httk₂, a ``UnitcellStructure`` is created from an explicit cell, a list of
+sites in reduced coordinates, and a per-site list of species. Coordinates given
+as strings, such as ``"1/2"`` or ``"5.64"``, are kept **exact** — httk₂ does
+all structure algebra in exact arithmetic. Here is a conventional cubic
+rock-salt (NaCl) cell:
 
 .. code:: python
 
-  from httk.atomistic import Structure, StructurePrimitiveView
+  from httk.atomistic import UnitcellStructure
 
-  cell = [[5.64, 0.0, 0.0],
-          [0.0, 5.64, 0.0],
-          [0.0, 0.0, 5.64]]
+  structure = UnitcellStructure(
+      cell=[["5.64", 0, 0], [0, "5.64", 0], [0, 0, "5.64"]],
+      sites=[
+          [0, 0, 0], ["1/2", "1/2", 0], ["1/2", 0, "1/2"], [0, "1/2", "1/2"],
+          ["1/2", "1/2", "1/2"], [0, 0, "1/2"], [0, "1/2", 0], ["1/2", 0, 0],
+      ],
+      species_at_sites=["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"],
+  )
 
-  sites = [[0.0, 0.0, 0.0], [0.5, 0.5, 0.0], [0.5, 0.0, 0.5], [0.0, 0.5, 0.5],
-           [0.5, 0.5, 0.5], [0.0, 0.0, 0.5], [0.0, 0.5, 0.0], [0.5, 0.0, 0.0]]
-
-  species = [
-      {"name": "Na", "chemical_symbols": ["Na"], "concentration": [1.0]},
-      {"name": "Cl", "chemical_symbols": ["Cl"], "concentration": [1.0]},
-  ]
-
-  species_at_sites = ["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"]
-
-  struct = Structure(cell=cell, sites=sites,
-                     species=species, species_at_sites=species_at_sites)
-
-  print("Species:", [s.name for s in struct.species])
-  print("Number of sites:", len(struct.sites))
-
-  # A view presents the same structure as a primitive (lattice, positions, numbers) triple:
-  lattice, positions, numbers = StructurePrimitiveView(struct)
-  print("Atomic numbers:", numbers)
+  print("Formula:", structure.formula)
+  print("Species:", [s.name for s in structure.species])
+  print("Number of sites:", len(structure.sites))
+  print("Volume:", structure.cell.volume, "=", float(structure.cell.volume))
 
 Running this generates the output::
 
+  Formula: ClNa
   Species: ['Na', 'Cl']
   Number of sites: 8
-  Atomic numbers: (11, 11, 11, 11, 17, 17, 17, 17)
+  Volume: (2803221/15625) = 179.406144
+
+See the `structures quickstart <quickstart-structures.html>`__ for saving,
+supercells, and interoperability with ASE and pymatgen.
 
 Databases
 +++++++++
 
 *httk-data* provides relational storage and querying over SQLite and DuckDB.
-See the `database documentation <https://docs.httk.org/httk-data/>`__.
+Structures — and your own frozen dataclasses — are stored exactly and can be
+queried back:
+
+.. code:: python
+
+  from httk.atomistic import StructureEntry, UnitcellStructureRecord
+  from httk.data.db import Database, SqlStore
+
+  store = SqlStore(
+      Database.sqlite("example.sqlite"),
+      entry_records={StructureEntry: UnitcellStructureRecord},
+  )
+  sid = store.save(structure)
+
+See the `databases quickstart <quickstart-databases.html>`__ and the
+`database documentation <https://docs.httk.org/httk-data/>`__.
 
 Reporting bugs
 --------------
