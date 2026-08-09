@@ -147,6 +147,7 @@ coordinates and cell algebra remain exact.
 More
 ----
 
-The full documentation at https://docs.httk.org covers symmetry recognition,
+The top-site `structures guide <https://docs.httk.org/dev/main/structures/>`__
+covers symmetry recognition,
 Wyckoff sites, precision tracking, periodicity (slabs and molecules), and more
 in the versioned *httk-atomistic* documentation.

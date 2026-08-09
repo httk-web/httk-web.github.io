@@ -111,6 +111,6 @@ Running this generates the output::
 More
 ----
 
-See the *httk-core* vector documentation at
-https://docs.httk.org/httk-core/ for the full vector family, including the
-zero-copy numpy views.
+See the *httk-core* `vector details
+<https://docs.httk.org/httk-core/dev/main/details/vectors/>`__ for the full
+vector family, including the zero-copy numpy views.
