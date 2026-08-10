@@ -1,0 +1,149 @@
+---
+title: "Quickstart: structures"
+template: default
+base_template: base_default
+---
+
+# *httk* quickstart: structures
+
+The examples below need *httk-atomistic* and *httk-io* installed (both are part
+of the `httk2` metapackage).
+
+## Create a structure in code
+
+A `UnitcellStructure` is created from an explicit cell, a list of sites in
+reduced coordinates, and a per-site list of species. Coordinates given as
+strings, such as `"1/2"` or `"5.64"`, are kept **exact**: httk₂ performs
+all structure algebra in exact arithmetic and only converts to floats when you
+explicitly ask for them. Here is a conventional cubic rock-salt (NaCl) cell:
+
+```python
+from httk.atomistic import UnitcellStructure
+
+structure = UnitcellStructure(
+    cell=[["5.64", 0, 0], [0, "5.64", 0], [0, 0, "5.64"]],
+    sites=[
+        [0, 0, 0], ["1/2", "1/2", 0], ["1/2", 0, "1/2"], [0, "1/2", "1/2"],
+        ["1/2", "1/2", "1/2"], [0, 0, "1/2"], [0, "1/2", 0], ["1/2", 0, 0],
+    ],
+    species_at_sites=["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"],
+)
+
+print("Formula:", structure.formula)
+print("Species:", [s.name for s in structure.species])
+print("Number of sites:", len(structure.sites))
+print("Volume:", structure.cell.volume, "=", float(structure.cell.volume))
+
+```
+Running this generates the output:
+```
+Formula: ClNa
+Species: ['Na', 'Cl']
+Number of sites: 8
+Volume: (2803221/15625) = 179.406144
+
+```
+Species can also be given as bare atomic numbers
+(`species_at_sites=[11, 11, ..., 17]`), and full `Species` objects express
+occupancies and disorder:
+
+```python
+from httk.atomistic import Species, UnitcellStructure
+
+alloy = UnitcellStructure(
+    cell=[[4, 0, 0], [0, 4, 0], [0, 0, 4]],
+    sites=[[0, 0, 0]],
+    species=[Species(name="FeNi", chemical_symbols=("Fe", "Ni"),
+                     concentration=(0.5, 0.5))],
+    species_at_sites=["FeNi"],
+)
+
+```
+## Load and save structure files
+
+`httk.core.load` loads CIF, POSCAR, and CONTCAR files (including compressed
+variants such as `CONTCAR.bz2`); `httk.core.save` writes them. A CIF loads
+as an `ASUStructure` — the file's native representation as an asymmetric unit
+plus its declared symmetry — while POSCAR/CONTCAR load as a full
+`UnitcellStructure`:
+
+```python
+from httk.core import load, save
+
+save(structure, "NaCl.cif")
+
+loaded = load("NaCl.cif")
+print(type(loaded).__name__)   # ASUStructure
+print("Formula:", loaded.formula)
+
+```
+Conversion between representations is done by constructing a view; the view
+expansion from asymmetric unit to full cell is exact and tolerance-free:
+
+```python
+from httk.atomistic import UnitcellStructureView
+
+full = UnitcellStructureView(loaded)
+print("Number of sites:", len(full.sites))   # 8
+
+```
+## Interoperate with ASE and pymatgen
+
+An ASE `Atoms` object is accepted anywhere a structure is expected, and any
+httk structure can be presented as ASE `Atoms` (requires `ase` installed):
+
+```python
+from ase.build import fcc111
+from httk.atomistic import ASEAtomsView, UnitcellStructureView
+
+slab = fcc111("Al", size=(2, 2, 3), vacuum=10.0)
+structure_from_ase = UnitcellStructureView(slab)
+
+atoms = ASEAtomsView(structure_from_ase)
+
+```
+`PymatgenStructureView` provides the same bridge to pymatgen. For libraries
+using the common spglib-style representation, `PlainStructureView` is an
+immutable, float-valued `(lattice, positions, atomic_numbers)` tuple:
+
+```python
+from httk.atomistic import PlainStructureView
+
+lattice, positions, numbers = PlainStructureView(structure)
+print("Atomic numbers:", numbers)
+
+```
+Running this generates the output:
+```
+Atomic numbers: (11, 11, 11, 11, 17, 17, 17, 17)
+
+```
+## Build supercells
+
+Supercell operations are direct methods on `UnitcellStructure`. Each returns
+a result whose `.structure` is the expanded cell, along with the selected
+integer transform and exact shape scores:
+
+```python
+general = structure.supercell([[2, 0, 0], [0, 2, 0], [0, 0, 1]])
+print(len(general.structure.sites), general.transformation)
+
+orthogonal = structure.orthogonal_supercell(tolerance="1/100")
+cubic = structure.cubic_supercell(tolerance="1/100")
+
+```
+Running the first two lines generates the output:
+```
+32 (1/1)*((2, 0, 0), (0, 2, 0), (0, 0, 1))
+
+```
+The automatic searches accept a shape `tolerance` and scale up until the cell
+is at least that close to the target shape; the search is deterministic and the
+coordinates and cell algebra remain exact.
+
+## More
+
+The top-site [structures guide](https://docs.httk.org/dev/main/structures/)
+covers symmetry recognition,
+Wyckoff sites, precision tracking, periodicity (slabs and molecules), and more
+in the versioned *httk-atomistic* documentation.

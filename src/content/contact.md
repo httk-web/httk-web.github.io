@@ -4,8 +4,7 @@ template: default
 base_template: base_default
 ---
 
-Contact
-=======
+# Contact
 
 Our primary point of contact is email to: rickard [at] httk.org
 (where [at] is replaced by @)

@@ -13,7 +13,9 @@ trees into `public/` (git-ignored output):
   `/v1/`. It keeps v1-accurate content, its own reduced-nav templates with a
   legacy banner, and links docs to `https://olddocs.httk.org`.
 
-Each tree has its own `config.httkweb`, `content/`, `templates/`, and `static/`.
+The main `src/` tree uses native Markdown (`config.md` and `content/*.md`), while
+`src-v1/` remains the legacy `.httkweb` subsite; both trees keep their own
+`templates/` and `static/` directories.
 
 ## Building
 
