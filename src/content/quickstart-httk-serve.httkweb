@@ -73,7 +73,7 @@ Serve data over OPTIMADE
 ``httk.serve.optimade`` is a generic implementation of the `OPTIMADE
 <https://www.optimade.org/>`__ protocol: the served entry types, properties,
 and records are supplied through the ``httk.core.EntryProvider`` contract, so
-any data source — including an *httk-data* store of structures — can be exposed
+any data source — including an *httk-store* store of structures — can be exposed
 as a standard OPTIMADE API. The top-site `data guide
 <https://docs.httk.org/dev/main/data/>`__ places that serving route in the
 larger data workflow. Reusable browser widgets (``httk.serve.table``,

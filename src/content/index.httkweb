@@ -118,14 +118,14 @@ supercells, and interoperability with ASE and pymatgen.
 Databases
 +++++++++
 
-*httk-data* provides relational storage and querying over SQLite and DuckDB.
+*httk-store* provides relational storage and querying over SQLite and DuckDB.
 Structures — and your own frozen dataclasses — are stored exactly and can be
 queried back:
 
 .. code:: python
 
   from httk.atomistic import StructureEntry, UnitcellStructureRecord
-  from httk.data.db import Database, SqlStore
+  from httk.store.db import Database, SqlStore
 
   store = SqlStore(
       Database.sqlite("example.sqlite"),
@@ -134,7 +134,7 @@ queried back:
   sid = store.save(structure)
 
 See the `databases quickstart <quickstart-databases.html>`__ and the
-`database documentation <https://docs.httk.org/httk-data/>`__.
+`database documentation <https://docs.httk.org/httk-store/>`__.
 
 Reporting bugs
 --------------

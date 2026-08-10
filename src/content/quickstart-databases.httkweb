@@ -8,10 +8,10 @@ base_template: base_default
 *httk* quickstart: databases
 ============================
 
-*httk-data* provides relational storage and querying over SQLite and DuckDB,
+*httk-store* provides relational storage and querying over SQLite and DuckDB,
 built on plain frozen dataclasses — no base classes, no ORM sessions. Exact
 values (rationals, surd cell bases) are stored exactly. The examples below need
-*httk-data* and *httk-atomistic* installed.
+*httk-store* and *httk-atomistic* installed.
 
 Create a database file, store a structure in it, and retrieve it
 ----------------------------------------------------------------
@@ -28,7 +28,7 @@ contain; here every stored structure uses the normalized
       UnitcellStructureRecord,
       UnitcellStructureView,
   )
-  from httk.data.db import Database, SqlStore
+  from httk.store.db import Database, SqlStore
 
   structure = UnitcellStructure(
       cell=[["5.64", 0, 0], [0, "5.64", 0], [0, 0, "5.64"]],
@@ -95,7 +95,7 @@ tuned with ``typing.Annotated`` markers from *httk-core* (``Indexed``,
   from typing import Annotated
 
   from httk.core import Indexed
-  from httk.data.db import Database, SqlStore
+  from httk.store.db import Database, SqlStore
 
   @dataclass(frozen=True)
   class Measurement:
@@ -129,6 +129,6 @@ More
 
 The top-site `data guide <https://docs.httk.org/dev/main/data/>`__ gives the
 ecosystem overview. The full `database details
-<https://docs.httk.org/httk-data/dev/main/details/db/>`__ cover child tables
+<https://docs.httk.org/httk-store/dev/main/details/db/>`__ cover child tables
 and references, content-based deduplication, cursors, store federation, and
 serving a store over the OPTIMADE protocol.
