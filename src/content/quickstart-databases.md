@@ -24,7 +24,7 @@ from httk.atomistic import (
     UnitcellStructureRecord,
     UnitcellStructureView,
 )
-from httk.store.db import Database, SqlStore
+from httk.store import Backend, SqlStore
 
 structure = UnitcellStructure(
     cell=[["5.64", 0, 0], [0, "5.64", 0], [0, 0, "5.64"]],
@@ -36,7 +36,7 @@ structure = UnitcellStructure(
 )
 
 store = SqlStore(
-    Database.sqlite("example.sqlite"),
+    Backend.sqlite("example.sqlite"),
     entry_records={StructureEntry: UnitcellStructureRecord},
 )
 
@@ -52,8 +52,8 @@ step. The hexadecimal `.id` is a content hash: structural, and stable across
 equivalent objects and stores. The integer `sid` is only a local relational
 row identifier. Saving an equal structure again deduplicates to the same row.
 
-`Database.sqlite()` without a filename creates an in-memory database;
-`Database.duckdb(...)` works the same way.
+`Backend.sqlite()` without a filename creates an in-memory database;
+`Backend.duckdb(...)` works the same way.
 
 ## Search the database
 
@@ -90,7 +90,7 @@ from fractions import Fraction
 from typing import Annotated
 
 from httk.core import Indexed
-from httk.store.db import Database, SqlStore
+from httk.store import Backend, SqlStore
 
 @dataclass(frozen=True)
 class Measurement:
@@ -98,7 +98,7 @@ class Measurement:
     spacegroup: int
     energy: Fraction
 
-store = SqlStore(Database.sqlite(), entry_records={})
+store = SqlStore(Backend.sqlite(), entry_records={})
 sid = store.save(Measurement("NaCl", 225, Fraction(-13, 3)))
 store.save(Measurement("MgO", 225, Fraction(-29, 7)))
 
