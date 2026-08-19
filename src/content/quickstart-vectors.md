@@ -13,14 +13,14 @@ ask for them.
 
 ## Exact rational vectors
 
-`FracVector.create` accepts nested lists of integers, fractions, strings,
+`FracVector` accepts nested lists of integers, fractions, strings,
 and decimal numbers. A `FracVector` is stored as integer nominators over one
 shared denominator, and is immutable and hashable:
 
 ```python
 from httk.core import FracVector
 
-a = FracVector.create([["1/3", "2/3", 0], [0, "1/2", "1/2"], ["1/4", 0, "3/4"]])
+a = FracVector([["1/3", "2/3", 0], [0, "1/2", "1/2"], ["1/4", 0, "3/4"]])
 
 print(a * 6)
 print("det:", a.det().simplify())
@@ -39,7 +39,7 @@ check: (1/1)*((1, 0, 0), (0, 1, 0), (0, 0, 1))
 Unlike floating point, exact arithmetic never accumulates rounding errors:
 
 ```python
-v = FracVector.create(["1/10", "2/10", "3/10"])
+v = FracVector(["1/10", "2/10", "3/10"])
 print((v + v + v).simplify())
 print(0.1 + 0.2 + 0.3)
 
