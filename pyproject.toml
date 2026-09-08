@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "httk-website"
-version = "0.1.0"
+version = "2.1.0"
 description = "The httk.org website, generated with the httk-serve (httk.serve.web) static site generator."
 readme = "README.md"
 license = "AGPL-3.0-or-later"
 requires-python = ">=3.12"
 authors = [{ name = "Rickard Armiento", email = "gitcommits@armiento.net" }]
 dependencies = [
-  "httk-serve @ git+https://github.com/httk/httk-serve@main",
+  "httk-serve>=2.1.0,<3",
 ]
 classifiers = [
   "Operating System :: OS Independent",
@@ -25,6 +25,9 @@ dev = [
   "ruff>=0.16,<0.17",
   "pyright",
   "mypy",
+  "httk-atomistic[default]>=2.1.0,<3",
+  "httk-store[default]>=2.1.0,<3",
+  "ase",
 ]
 
 [tool.setuptools]

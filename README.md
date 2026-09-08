@@ -1,6 +1,6 @@
 # httk.org website
 
-The website for httk (served at http://httk.org).
+The website for *httk₂* (served at https://httk.org).
 
 ## Layout
 
@@ -31,9 +31,16 @@ Then open `public/index.html` in your browser.
 
 ## Developing
 
+Install the development extra to run the executable quickstarts:
+
+```bash
+pip install ".[dev]"
+```
+
 A `Makefile` provides the common targets:
 
 ```bash
+make ci            # execute quickstarts and build both sites
 make generate      # build public/ (and public/v1/) with publish_static.py
 make serve         # run the dynamic dev server (serve_dynamic.py) on :8080
 make serve_static  # build, then serve public/ over http.server on :8080

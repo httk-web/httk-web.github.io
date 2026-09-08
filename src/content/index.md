@@ -10,7 +10,7 @@ The High-Throughput Toolkit (*httk*) is a toolkit for preparing and running calc
 
 *httk* was created in 2014. This site describes **httk₂**, the current main version.
 
-httk₂ is a rewrite of *httk* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.io`, `httk.atomistic`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
+httk₂ is a rewrite of *httk* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
 
 *Looking for httk version 1?* The legacy site is available at [/v1/](/v1/index.html).
 
@@ -52,7 +52,7 @@ details.
 
 ### Load a structure file
 
-With *httk-io* and *httk-atomistic* installed, `httk.core.load` loads CIF,
+With *httk-atomistic* installed, `httk.core.load` loads CIF,
 POSCAR, and CONTCAR files (including compressed variants such as
 `CONTCAR.bz2`) directly into httk₂ structure objects:
 
@@ -115,11 +115,12 @@ queried back:
 
 ```python
 from httk.atomistic import StructureEntry, UnitcellStructureRecord
-from httk.store import Backend, SqlStore
+from httk.store import Backend, EntryIdScheme, SqlStore
 
 store = SqlStore(
     Backend.sqlite("example.sqlite"),
     entry_records={StructureEntry: UnitcellStructureRecord},
+    entry_ids=EntryIdScheme("example", "structures"),
 )
 sid = store.save(structure)
 
@@ -141,9 +142,8 @@ This is presently the preferred citation:
 
 Since *httk* may call upon many other pieces of software quite
 transparently, it may not be initially obvious what other software
-should be cited. Unless configured otherwise, *httk* prints out a list
-of citations when the program ends. You should take note of those
-citations and include them in your publications if relevant.
+should be cited. Check the documentation of the modules and external programs you use,
+and include their relevant citations in your publications.
 
 ## More documentation
 

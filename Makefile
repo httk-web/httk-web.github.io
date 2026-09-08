@@ -1,6 +1,11 @@
 PYTHON ?= python3
 
-.PHONY: generate serve serve_static clean
+.PHONY: generate serve serve_static clean ci check-examples
+
+ci: check-examples generate
+
+check-examples:
+	$(PYTHON) check_examples.py
 
 generate:
 	$(PYTHON) ./publish_static.py

@@ -6,8 +6,8 @@ base_template: base_default
 
 # *httk* quickstart: structures
 
-The examples below need *httk-atomistic* and *httk-io* installed (both are part
-of the `httk2` metapackage).
+The examples below need *httk-atomistic* installed (part of the `httk2`
+metapackage). File readers and writers are included in *httk-atomistic*.
 
 ## Create a structure in code
 

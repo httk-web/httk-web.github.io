@@ -14,7 +14,7 @@ values (rationals, surd cell bases) are stored exactly. The examples below need
 ## Create a database file, store a structure in it, and retrieve it
 
 The first opening of a store declares which durable record layouts it may
-contain; here every stored structure uses the normalized
+contain and how public entry IDs are minted; here every stored structure uses the normalized
 `UnitcellStructureRecord` layout:
 
 ```python
@@ -24,7 +24,7 @@ from httk.atomistic import (
     UnitcellStructureRecord,
     UnitcellStructureView,
 )
-from httk.store import Backend, SqlStore
+from httk.store import Backend, EntryIdScheme, SqlStore
 
 structure = UnitcellStructure(
     cell=[["5.64", 0, 0], [0, "5.64", 0], [0, 0, "5.64"]],
@@ -38,6 +38,7 @@ structure = UnitcellStructure(
 store = SqlStore(
     Backend.sqlite("example.sqlite"),
     entry_records={StructureEntry: UnitcellStructureRecord},
+    entry_ids=EntryIdScheme("example", "structures"),
 )
 
 sid = store.save(structure)
@@ -50,7 +51,9 @@ print("Saved row", sid, "with stable structure id", restored.id)
 species, and composition recursively — there is no manual record-conversion
 step. The hexadecimal `.id` is a content hash: structural, and stable across
 equivalent objects and stores. The integer `sid` is only a local relational
-row identifier. Saving an equal structure again deduplicates to the same row.
+row identifier. `EntryIdScheme` mints public lineage IDs such as
+`example-structures-1`; revision IDs append `~1`. Saving an equal structure
+again deduplicates to the same row.
 
 `Backend.sqlite()` without a filename creates an in-memory database;
 `Backend.duckdb(...)` works the same way.
