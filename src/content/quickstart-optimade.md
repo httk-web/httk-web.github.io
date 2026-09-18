@@ -44,28 +44,25 @@ Entry type: references
 
 Queries use the *httk-store* searcher: bind a variable to an entry type, add
 conditions, and freeze the query with `results()`. The conditions are
-translated into the OPTIMADE filter language (`elements HAS "Na" AND ...`),
-and `count()` asks the service how many entries match. Standard OPTIMADE
+translated into the OPTIMADE filter language
+(`chemical_formula_reduced = "ClNa" AND nsites = 2`), and `search.count()`
+asks the service how many entries match, for services that report counts.
+Standard OPTIMADE
 properties and provider-specific ones (here prefixed `_alexandria_`) are
 available as attributes of the variable:
 
 ```python
 search = store.searcher()
 s = search.variable(store.entry_type("structures"))
-search.add(s.elements.has("Na") & s.elements.has("Cl") & (s.nelements == 2))
-print("Matching structures:", search.count())
-
-search.set_limit(3)
-for row in search.results(structure=s, formula=s.chemical_formula_reduced, nsites=s.nsites):
-    print(row.structure.id, row.formula, row.nsites)
+search.add((s.chemical_formula_reduced == "ClNa") & (s.nsites == 2))
+for row in search.results(structure=s, nsites=s.nsites, spacegroup=s._alexandria_space_group):
+    print(row.structure.id, row.nsites, row.spacegroup)
 
 ```
 Running this generates the output:
 ```
-Matching structures: 61
-agm001193633 ClNa5 6
-agm001282849 ClNa3 4
-agm001828725 ClNa3 4
+agm003157609 2 225
+agm005244656 2 221
 
 ```
 Results are fetched page by page as you iterate, so a query over a large
@@ -73,7 +70,8 @@ database only transfers the rows you consume.
 
 ## Pandas-style slicing
 
-`store.slicer(...)` wraps the same query machinery in a `[]` indexing surface.
+`store.slicer(...)` wraps the same query machinery in a `[]` indexing surface;
+here it repeats the selection above in pandas style.
 A field name gives a column, comparisons give boolean masks that combine with
 `&`, `|`, and `~`, and indexing with a mask selects the matching entries:
 
