@@ -12,6 +12,7 @@ requires-python = ">=3.12"
 authors = [{ name = "Rickard Armiento", email = "gitcommits@armiento.net" }]
 dependencies = [
   "httk-serve>=2.1.0,<3",
+  "pygments>=2.0",
 ]
 classifiers = [
   "Operating System :: OS Independent",

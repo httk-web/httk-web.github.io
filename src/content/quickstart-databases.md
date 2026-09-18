@@ -126,7 +126,7 @@ custom dataclasses.
 
 ## More
 
-The top-site [data guide](https://docs.httk.org/dev/main/data/) gives the
-ecosystem overview. The full [database details](https://docs.httk.org/httk-store/dev/main/details/db/) cover child tables
+The top-site [data guide](https://docs.httk.org/dev/main/data.html) gives the
+ecosystem overview. The full [database details](https://docs.httk.org/httk-store/dev/main/details/db.html) cover child tables
 and references, content-based deduplication, cursors, store federation, and
 serving a store over the OPTIMADE protocol.

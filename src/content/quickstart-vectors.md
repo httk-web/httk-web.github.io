@@ -110,5 +110,5 @@ volume: (45/2)*sqrt(3) = 38.97114317029974
 ```
 ## More
 
-See the *httk-core* [vector details](https://docs.httk.org/httk-core/dev/main/details/vectors/) for the full
+See the *httk-core* [vector details](https://docs.httk.org/httk-core/dev/main/details/vectors.html) for the full
 vector family, including the zero-copy numpy views.

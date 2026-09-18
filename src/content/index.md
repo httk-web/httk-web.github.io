@@ -10,32 +10,67 @@ The High-Throughput Toolkit (*httk*) is a toolkit for preparing and running calc
 
 *httk* was created in 2014. This site describes **httk₂**, the current main version.
 
+<div class="alert alert-info" role="alert">
+<strong>Looking for httk v1?</strong> The legacy version has its own website at
+<a href="https://httk.org/v1">httk.org/v1</a>, documentation at
+<a href="https://olddocs.httk.org">olddocs.httk.org</a>, and source code at
+<a href="https://github.com/httk/httk">github.com/httk/httk</a>.
+<strong>Note that httk v1 and httk₂ cannot be installed in the same Python environment.</strong>
+</div>
+
 httk₂ is a rewrite of *httk* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
 
-*Looking for httk version 1?* The legacy site is available at [/v1/](/v1/index.html).
+<h2 id="installation">Installation</h2>
 
-## Installation
+httk₂ requires Python 3.12 or newer. The `httk2` metapackage installs the
+complete standard set of httk₂ modules, each with its recommended default
+features, in one step:
 
-The `httk2` metapackage installs a standard selection of modules in one step.
+```bash
+pip install httk2
 
-* Clone the source code repository and install it:
+```
+We recommend installing into a virtual environment. Pick your preferred tool:
 
-        :::bash
-        git clone https://github.com/httk/httk2.git
-        pip install ./httk2
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#install-venv" role="tab">Python venv</a></li>
+<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#install-uv" role="tab">uv</a></li>
+<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#install-conda" role="tab">conda</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane fade show active" id="install-venv" role="tabpanel">
 
-* Or install the metapackage from PyPI:
+```bash
+python3 --version  # check that you have Python 3.12 or newer
+python3 -m venv .venv
+source .venv/bin/activate
+pip install httk2
+```
 
-        :::bash
-        pip install httk2
+</div>
+<div class="tab-pane fade" id="install-uv" role="tabpanel">
 
-This installs the complete standard set of httk₂ modules, each with its
-recommended default features. For development, the `httk2` repository also
-provides a `dev-main` branch that installs the latest development state of
-every module directly from GitHub, and Makefile helpers that check out all
-module repositories and install them into your virtual environment in one
-step; see the [httk2 README](https://github.com/httk/httk2#readme) for
-details.
+```bash
+uv venv --python 3.12 .venv
+source .venv/bin/activate
+uv pip install httk2
+```
+
+</div>
+<div class="tab-pane fade" id="install-conda" role="tabpanel">
+
+```bash
+conda create -n httk2 python=3.12 pip
+conda activate httk2
+python -m pip install httk2
+```
+
+</div>
+</div>
+
+Individual modules can also be installed on their own, e.g.,
+`pip install httk-atomistic`; see the
+[httk2 README](https://github.com/httk/httk2#readme) for the list of modules.
 
 ## Quickstart
 
@@ -45,8 +80,9 @@ details.
 
     - [Atomic structures (i.e., crystal structures / slabs / molecules)](quickstart-structures.html)
     - [Vectors](quickstart-vectors.html)
-    - [UI and websites](quickstart-httk-serve.html)
     - [Databases](quickstart-databases.html)
+    - [The OPTIMADE client](quickstart-optimade.html)
+    - [UI and websites](quickstart-httk-serve.html)
 
 ## A few simple usage examples
 
@@ -128,6 +164,23 @@ sid = store.save(structure)
 See the [databases quickstart](quickstart-databases.html) and the
 [database documentation](https://docs.httk.org/httk-store/).
 
+### Query materials databases over OPTIMADE
+
+The same query interface reaches remote databases that speak the
+[OPTIMADE](https://www.optimade.org/) API:
+
+```python
+from httk.store.optimade import OptimadeStore
+
+with OptimadeStore("https://alexandria.icams.rub.de/pbe") as store:
+    search = store.searcher()
+    s = search.variable(store.entry_type("structures"))
+    search.add(s.elements.has("Na") & s.elements.has("Cl") & (s.nelements == 2))
+    print("Matching structures:", search.count())
+
+```
+See the [OPTIMADE client quickstart](quickstart-optimade.html).
+
 ## Reporting bugs
 
 Please file bugs at the issue tracker of the relevant module repository within the httk GitHub organization (please search first to check if it is already reported):
@@ -141,9 +194,39 @@ This is presently the preferred citation:
 - R. Armiento et al., The High-Throughput Toolkit (httk), [http://httk.org/](http://httk.org/); Armiento R. (2020) Database-Driven High-Throughput Calculations and Machine Learning Models for Materials Design. In: Schütt K., Chmiela S., von Lilienfeld O., Tkatchenko A., Tsuda K., Müller KR. (eds) Machine Learning Meets Quantum Physics. Lecture Notes in Physics, vol 968. Springer, Cham. [https://doi.org/10.1007/978-3-030-40245-7_17](https://doi.org/10.1007/978-3-030-40245-7_17)
 
 Since *httk* may call upon many other pieces of software quite
-transparently, it may not be initially obvious what other software
-should be cited. Check the documentation of the modules and external programs you use,
-and include their relevant citations in your publications.
+transparently, it may not be initially obvious what other software should be
+cited. httk₂ therefore keeps track of the functionality your program actually
+used and can print the corresponding citation list on request. Ask for it at
+the end of your program, or when it produces a report:
+
+```python
+import httk.core
+
+print(httk.core.credits)
+
+```
+The output lists what the running program ought to cite and why, including the
+*httk* reference above and the references registered by the modules and
+external programs that were used. See the
+[credits documentation](https://docs.httk.org/httk-core/dev/main/credits.html)
+for details, including how to register citations for your own modules.
+
+<h2 id="contribute">Contribute</h2>
+
+Contributions are very welcome. We are happy to accept issues and pull
+requests to the respective `httk-<module>` repositories in the
+[httk GitHub organization](https://github.com/httk).
+
+The `httk2` metapackage repository doubles as a development helper
+environment: clone it and use its Makefile targets to check out all module
+repositories and install them into a virtual environment in one step:
+
+```bash
+git clone https://github.com/httk/httk2.git
+
+```
+See [Developing httk₂](https://github.com/httk/httk2#developing-httk) in the
+httk2 README for the details.
 
 ## More documentation
 

@@ -69,7 +69,7 @@ another real-world example, at [https://github.com/httk/httk-web.github.io](http
 `httk.serve.optimade` is a generic implementation of the [OPTIMADE](https://www.optimade.org/) protocol: the served entry types, properties,
 and records are supplied through the `httk.core.EntryProvider` contract, so
 any data source — including an *httk-store* store of structures — can be exposed
-as a standard OPTIMADE API. The top-site [data guide](https://docs.httk.org/dev/main/data/) places that serving route in the
+as a standard OPTIMADE API. The top-site [data guide](https://docs.httk.org/dev/main/data.html) places that serving route in the
 larger data workflow. Reusable browser widgets (`httk.serve.table`,
 `httk.serve.optimade_table`) render paged result tables in generated sites.
 
