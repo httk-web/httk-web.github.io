@@ -151,10 +151,10 @@ queried back:
 
 ```python
 from httk.atomistic import StructureEntry, UnitcellStructureRecord
-from httk.store import Backend, EntryIdScheme, SqlStore
+from httk.store import EntryIdScheme, SqliteStore
 
-store = SqlStore(
-    Backend.sqlite("example.sqlite"),
+store = SqliteStore(
+    "example.sqlite",
     entry_records={StructureEntry: UnitcellStructureRecord},
     entry_ids=EntryIdScheme("example", "structures"),
 )

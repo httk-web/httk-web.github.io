@@ -24,7 +24,7 @@ from httk.atomistic import (
     UnitcellStructureRecord,
     UnitcellStructureView,
 )
-from httk.store import Backend, EntryIdScheme, SqlStore
+from httk.store import EntryIdScheme, SqliteStore
 
 structure = UnitcellStructure(
     cell=[["5.64", 0, 0], [0, "5.64", 0], [0, 0, "5.64"]],
@@ -35,8 +35,8 @@ structure = UnitcellStructure(
     species_at_sites=["Na", "Na", "Na", "Na", "Cl", "Cl", "Cl", "Cl"],
 )
 
-store = SqlStore(
-    Backend.sqlite("example.sqlite"),
+store = SqliteStore(
+    "example.sqlite",
     entry_records={StructureEntry: UnitcellStructureRecord},
     entry_ids=EntryIdScheme("example", "structures"),
 )
@@ -55,8 +55,8 @@ row identifier. `EntryIdScheme` mints public lineage IDs such as
 `example-structures-1`; revision IDs append `~1`. Saving an equal structure
 again deduplicates to the same row.
 
-`Backend.sqlite()` without a filename creates an in-memory database;
-`Backend.duckdb(...)` works the same way.
+`SqliteStore()` without a filename creates an in-memory database;
+`DuckdbStore(...)` works the same way.
 
 ## Search the database
 
@@ -93,7 +93,7 @@ from fractions import Fraction
 from typing import Annotated
 
 from httk.core import Indexed
-from httk.store import Backend, SqlStore
+from httk.store import SqliteStore
 
 @dataclass(frozen=True)
 class Measurement:
@@ -101,7 +101,7 @@ class Measurement:
     spacegroup: int
     energy: Fraction
 
-store = SqlStore(Backend.sqlite(), entry_records={})
+store = SqliteStore(entry_records={})
 sid = store.save(Measurement("NaCl", 225, Fraction(-13, 3)))
 store.save(Measurement("MgO", 225, Fraction(-29, 7)))
 
