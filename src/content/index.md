@@ -10,7 +10,7 @@ The High-Throughput Toolkit (*httk₂*) is a toolkit for preparing and running c
 
 The first version of *httk* was created in 2014. This site describes *httk₂*, the current main version.
 
-<div class="alert alert-info" role="alert">
+<div class="alert alert-secondary" role="alert">
 <strong>Looking for httk v1?</strong> The legacy version has its own website at
 <a href="https://httk.org/v1">httk.org/v1</a>, documentation at
 <a href="https://olddocs.httk.org">olddocs.httk.org</a>, and source code at
@@ -20,15 +20,13 @@ The first version of *httk* was created in 2014. This site describes *httk₂*, 
 
 *httk₂* is a rewrite of *httk v1* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
 
-<div class="alert alert-info" role="alert">
-<strong>⚠️  EARLY BETA</strong> The organization of *httk₂* packages and their APIs is not yet stable, and may change between releases during the v2.1.* versions.
+<div class="alert alert-warning" role="alert">
+<strong>⚠ EARLY BETA</strong> The organization of <i>httk₂</i> packages and their APIs is not yet stable, and may change between releases during the v2.1.* versions.
 </div>
 
 <h2 id="installation">Installation</h2>
 
-httk₂ requires Python 3.12 or newer. The `httk2` metapackage installs the
-complete standard set of httk₂ modules, each with its recommended default
-features, in one step:
+*httk₂* requires Python 3.12 or newer. The `httk2` metapackage installs the complete standard set of httk₂ modules, each with its recommended default features, in one step:
 
 ```bash
 pip install httk2
@@ -229,8 +227,7 @@ repositories and install them into a virtual environment in one step:
 git clone https://github.com/httk/httk2.git
 
 ```
-See [Developing httk₂](https://github.com/httk/httk2#developing-httk) in the
-httk2 README for the details.
+See [Developing *httk₂*](https://github.com/httk/httk2#developing-httk) in the httk2 README for the details.
 
 ## More documentation
 
