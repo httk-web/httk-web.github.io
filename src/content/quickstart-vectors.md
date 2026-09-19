@@ -55,14 +55,14 @@ plain-float lists, and exact scalars support `float(...)`.
 
 ## Exact square roots
 
-`exactmath` holds exact and correctly-rounded transcendentals. With
-`exact=True`, `sqrt` returns an exact `SurdScalar`, and algebra in the
-square-root field stays exact:
+`exactmath` holds exact and correctly-rounded transcendentals. By default it
+returns a symbolically exact value whenever one exists: `sqrt(3)` is an exact
+`SurdScalar`, and algebra in the square-root field stays exact:
 
 ```python
 from httk.core import exactmath
 
-r3 = exactmath.sqrt(3, exact=True)
+r3 = exactmath.sqrt(3)
 print(r3 * r3)
 print((1 + r3) * (1 - r3))
 
@@ -73,7 +73,8 @@ Running this generates the output:
 -2
 
 ```
-Rational results are exact `Fraction` values, and `digits=` gives correctly
+Rational results are exact `Fraction` values, `exact=False` asks for a
+controlled rational approximation instead, and `digits=` gives correctly
 rounded decimals to any precision:
 
 ```python
