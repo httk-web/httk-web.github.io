@@ -100,7 +100,7 @@ explicitly, with the identity symmetry operation.
 
 `cifs/NaCl.cif`:
 
-```cif
+```text
 data_NaCl
 _cell_length_a 5.64
 _cell_length_b 5.64
@@ -130,7 +130,7 @@ Cl4 Cl 0.5 0 0
 
 `cifs/MgO.cif`:
 
-```cif
+```text
 data_MgO
 _cell_length_a 4.21
 _cell_length_b 4.21

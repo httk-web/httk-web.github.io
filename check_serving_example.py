@@ -23,7 +23,7 @@ def main() -> None:
     section = page.read_text(encoding="utf-8").split("Serve data over OPTIMADE", 1)[1]
     blocks = re.findall(r"^```(\w+)\n(.*?)^```", section, re.MULTILINE | re.DOTALL)
     python = [code for language, code in blocks if language == "python"]
-    cifs = [code for language, code in blocks if language == "cif"]
+    cifs = [code for language, code in blocks if language == "text" and code.startswith("data_")]
     inputs = next(code for language, code in blocks if language == "json")
     expected_item = json.loads([code for language, code in blocks if language == "json"][1])
     assert len(python) == 3 and len(cifs) == 2
