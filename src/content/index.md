@@ -88,6 +88,10 @@ Individual modules can also be installed on their own, e.g.,
     - [The OPTIMADE client](quickstart-optimade.html)
     - [UI and websites](quickstart-httk-serve.html)
 
+## Usage overview
+
+<img src="httk_maps2.svg" width="100%"/>
+
 ## A few basic usage examples
 
 ### Load a structure file
