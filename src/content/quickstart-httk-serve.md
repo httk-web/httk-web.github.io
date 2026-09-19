@@ -83,114 +83,88 @@ download [NaCl.cif](examples/optimade/NaCl.cif) and
 
 ```json
 [
-  {"sample": "nacl-demo", "cif": "NaCl.cif", "formation_energy": -1.2},
-  {"sample": "mgo-demo", "cif": "MgO.cif", "formation_energy": -0.8}
+  {"cif": "NaCl.cif", "formation_energy": -1.2},
+  {"cif": "MgO.cif", "formation_energy": -0.8}
 ]
 ```
 
-These are invented demonstration energies in eV per atom. Use a unique
-`sample` label for each result; several results can refer to the same CIF.
+These are invented demonstration energies in eV per atom, associated with the
+CIF named by each row.
 
-Save this as `import_data.py` beside `results.json`. `Result` defines an
-energy record and a `StrongLink` to its structure. The remaining class metadata
-tells OPTIMADE how to describe and filter the energy field.
+The three small scripts below separate the record definition, database build,
+and server. The `EntryRecord` helpers supply the storage and OPTIMADE plumbing;
+the class only says what a result contains. These helpers are currently
+unreleased, so use matching development checkouts of `httk-core` and
+`httk-store` when trying this example.
+
+Save this as `result_record.py` beside `results.json`:
+
+```python
+from typing import Annotated
+
+from httk.atomistic import UnitcellStructureRecord
+from httk.core import DataEntryRecord, Property, entry_record
+
+
+@entry_record("example.result")
+class Result(DataEntryRecord):
+    formation_energy: Annotated[
+        float,
+        Property(
+            unit="eV",
+            description="Formation energy per atom relative to elemental reference phases.",
+        ),
+    ]
+    structure: UnitcellStructureRecord
+```
+
+The energy is published as `_httk_custom_formation_energy`; the ordinary
+`structure` field becomes a relationship to `structures`.
+
+Save this as `build_db.py`:
 
 ```python
 import json
-from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Annotated, ClassVar
 
-from httk.atomistic import StructureEntry, UnitcellStructureRecord, UnitcellStructureView
-from httk.core import PropertyDefinition, RunEdge, load, load_entry_type_definition
-from httk.core.data_records import RECORDS_DEFINITION_ID
-from httk.core.register import register_entry_family, register_entry_record
-from httk.core.storage import IdentitySkip, Indexed, StorageInfo, StoredPropertyProjection, StrongLink, Unique
+from httk.atomistic import UnitcellStructureRecord, UnitcellStructureView
+from httk.core import load
 from httk.store import EntryIdScheme, SqliteStore
+from result_record import Result
 
-energy = PropertyDefinition.from_simple(
-    "_httk_custom_formation_energy",
-    description="Formation energy per atom relative to elemental reference phases.",
-    fulltype="float", unit="eV",
+
+store = SqliteStore(
+    "results.sqlite", records=[Result], entry_ids=EntryIdScheme("example", "1")
 )
-
-@dataclass(frozen=True)
-class Result:
-    """An energy result with a stored link to its structure."""
-
-    sample: str
-    formation_energy: float
-    structure: Annotated[tuple[RunEdge, ...], StrongLink("structure", role="subject")]
-    id: Annotated[str | None, IdentitySkip(), Indexed()] = field(default=None, compare=False)
-    immutable_id: Annotated[str | None, IdentitySkip(), Unique()] = field(default=None, compare=False)
-
-    type: ClassVar = "records"
-    definition_id: ClassVar = RECORDS_DEFINITION_ID
-    __httk_storage__: ClassVar = StorageInfo(storage_name="example_result", identity_name="example.result")
-    __httk_stored_properties__: ClassVar = {
-        energy.name: StoredPropertyProjection(
-            response=lambda record: record.formation_energy,
-            query=lambda context, operator, value: context.compare(
-                context.field("formation_energy"), operator, context.constant(value)
-            ),
-        ),
-    }
-
-    @classmethod
-    def entry_type_definition(cls):
-        """Describe the energy served on the records endpoint."""
-        return load_entry_type_definition(cls.definition_id).extended({energy.name: energy})
-
-register_entry_family(name="example-results", family=f"{__name__}:Result", definition_id=RECORDS_DEFINITION_ID)
-register_entry_record(name="example-result", record=f"{__name__}:Result", family="example-results")
-
-root = Path(__file__).parent
-
-def open_store():
-    """Open the results database with its structure and energy record layouts."""
-    return SqliteStore(
-        root / "results.sqlite",
-        entry_records={StructureEntry: UnitcellStructureRecord, Result: Result},
-        entry_ids=EntryIdScheme("example", "1"),
-    )
-
-if __name__ == "__main__":
-    rows = json.loads((root / "results.json").read_text())
-    with open_store() as store, store.transaction():
-        for row in rows:
-            sid = store.save(UnitcellStructureView(load(root / "cifs" / row["cif"])))
-            structure = store.fetch(UnitcellStructureRecord, sid)
-            store.save(Result(
-                row["sample"], row["formation_energy"],
-                (RunEdge("structure", "structures", structure.id),),
-            ))
+for row in json.loads(Path("results.json").read_text()):
+    sid = store.save(UnitcellStructureView(load(Path("cifs") / row["cif"])))
+    structure = store.fetch(UnitcellStructureRecord, sid)
+    store.save(Result(row["formation_energy"], structure))
+store.close()
 ```
 
-`store.save()` stores each structure and result. The link is part of the result's
-content; `RunEdge` holds the stored structure's public ID. The transaction keeps
-the import together, and repeating an unchanged import deduplicates the data.
-The custom energy attribute is published as `_httk_custom_formation_energy`.
-
-Now save the serving script as `api.py` in the same directory:
+Save this as `serve_db.py`:
 
 ```python
-from import_data import open_store
 from httk.serve.optimade import serve
+from httk.store import SqliteStore
+from result_record import Result
 
-with open_store() as store:
-    serve(store, port=8080)
+
+store = SqliteStore("results.sqlite", records=[Result])
+serve(store, port=8080)
+store.close()
 ```
 
 Run the import once, then start the API:
 
 ```bash
-python import_data.py
-python api.py
+python build_db.py
+python serve_db.py
 ```
 
-Importing `open_store` loads the record definition without running the import
-loop. The server reads the persisted database directly; it does not need the
-JSON or CIF files. The `with` block closes the store when the server stops.
+The server reads the persisted database directly; it does not need the JSON or
+CIF files. Repeating the build deduplicates unchanged data.
 
 In another terminal, list the structures or select energies below −1 eV/atom
 together with their linked structures:
@@ -204,9 +178,9 @@ curl --get http://127.0.0.1:8080/v1/_httk_records \
 
 The filtered response contains the NaCl result with
 `attributes._httk_custom_formation_energy` equal to `-1.2`. Its
-`relationships._httk_structure` points to the saved structure, and `included`
-contains that structure's lattice, sites, and species. The store assigns the
-public IDs. Visit `/v1/info/_httk_records` to see the energy property's definition.
+`relationships.structures` points to the saved structure, and `included`
+contains that structure's lattice, sites, and species. Visit
+`/v1/info/_httk_records` to see the energy property's definition.
 
 For more on database queries and serving, see the
 [SQLite serving walkthrough](https://docs.httk.org/dev/main/serving-data.html).
