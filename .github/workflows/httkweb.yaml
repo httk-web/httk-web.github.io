@@ -19,6 +19,26 @@ defaults:
     shell: bash
 
 jobs:
+  # This unversioned site publishes independently of the example checks.
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install project and check dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ".[dev]"
+
+      - name: Check examples and generate website
+        run: make ci
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -33,10 +53,10 @@ jobs:
       - name: Install project
         run: |
           python -m pip install --upgrade pip
-          python -m pip install ".[dev]"
+          python -m pip install .
 
-      - name: Check examples and generate website
-        run: make ci
+      - name: Generate website
+        run: make generate
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
