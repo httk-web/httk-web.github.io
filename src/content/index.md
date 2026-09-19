@@ -20,6 +20,10 @@ The first version of *httk* was created in 2014. This site describes *httk₂*, 
 
 *httk₂* is a rewrite of *httk v1* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
 
+<div class="alert alert-info" role="alert">
+<strong>⚠️  EARLY BETA</strong> The organization of *httk₂* packages and their APIs is not yet stable, and may change between releases during the v2.1.* versions.
+</div>
+
 <h2 id="installation">Installation</h2>
 
 httk₂ requires Python 3.12 or newer. The `httk2` metapackage installs the
