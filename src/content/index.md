@@ -4,21 +4,21 @@ template: front
 base_template: base_default
 ---
 
-# The High-Throughput Toolkit (*httk*)
+# The High-Throughput Toolkit (*httk₂*)
 
-The High-Throughput Toolkit (*httk*) is a toolkit for preparing and running calculations, analyzing the results, and storing results in global and/or personalized databases. *httk* is presently targeted at atomistic calculations in materials science and electronic structure, but aims to be extended into a library useful also outside those areas.
+The High-Throughput Toolkit (*httk₂*) is a toolkit for preparing and running calculations, analyzing the results, and storing results in global and/or personalized databases. *httk₂* is presently targeted at atomistic calculations in materials science and electronic structure, but aims to be extended into a library useful also outside those areas.
 
-*httk* was created in 2014. This site describes **httk₂**, the current main version.
+The first version of *httk* was created in 2014. This site describes *httk₂*, the current main version.
 
 <div class="alert alert-info" role="alert">
 <strong>Looking for httk v1?</strong> The legacy version has its own website at
 <a href="https://httk.org/v1">httk.org/v1</a>, documentation at
 <a href="https://olddocs.httk.org">olddocs.httk.org</a>, and source code at
 <a href="https://github.com/httk/httk">github.com/httk/httk</a>.
-<strong>Note that httk v1 and httk₂ cannot be installed in the same Python environment.</strong>
+<strong>Note that httk v1 and <i>httk₂</i> cannot be installed in the same Python environment.</strong>
 </div>
 
-httk₂ is a rewrite of *httk* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
+*httk₂* is a rewrite of *httk v1* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
 
 <h2 id="installation">Installation</h2>
 
@@ -74,7 +74,7 @@ Individual modules can also be installed on their own, e.g.,
 
 ## Quickstart
 
-* A few short general *httk* code examples follow in sections below.
+* A few short general *httk₂* code examples follow in sections below.
 
 * Quickstarts covering specific functionalities are available for working with:
 
@@ -84,7 +84,7 @@ Individual modules can also be installed on their own, e.g.,
     - [The OPTIMADE client](quickstart-optimade.html)
     - [UI and websites](quickstart-httk-serve.html)
 
-## A few simple usage examples
+## A few basic usage examples
 
 ### Load a structure file
 
@@ -108,9 +108,9 @@ representations is done by constructing a view, e.g.
 
 ### Create structures in code
 
-In httk₂, a `UnitcellStructure` is created from an explicit cell, a list of
+In *httk₂*, a `UnitcellStructure` is created from an explicit cell, a list of
 sites in reduced coordinates, and a per-site list of species. Coordinates given
-as strings, such as `"1/2"` or `"5.64"`, are kept **exact** — httk₂ does
+as strings, such as `"1/2"` or `"5.64"`, are kept **exact,** *httk₂* does
 all structure algebra in exact arithmetic. Here is a conventional cubic
 rock-salt (NaCl) cell:
 
@@ -183,19 +183,19 @@ See the [OPTIMADE client quickstart](quickstart-optimade.html).
 
 ## Reporting bugs
 
-Please file bugs at the issue tracker of the relevant module repository within the httk GitHub organization (please search first to check if it is already reported):
+Please file bugs at the issue tracker of the relevant module repository within the *httk₂* GitHub organization (please search first to check if it is already reported):
 
 * [https://github.com/httk](https://github.com/httk)
 
-## Citing *httk* in scientific works
+## Citing *httk₂* in scientific works
 
 This is presently the preferred citation:
 
-- R. Armiento et al., The High-Throughput Toolkit (httk), [http://httk.org/](http://httk.org/); Armiento R. (2020) Database-Driven High-Throughput Calculations and Machine Learning Models for Materials Design. In: Schütt K., Chmiela S., von Lilienfeld O., Tkatchenko A., Tsuda K., Müller KR. (eds) Machine Learning Meets Quantum Physics. Lecture Notes in Physics, vol 968. Springer, Cham. [https://doi.org/10.1007/978-3-030-40245-7_17](https://doi.org/10.1007/978-3-030-40245-7_17)
+- Armiento R. (2020) Database-Driven High-Throughput Calculations and Machine Learning Models for Materials Design. In: Schütt K., Chmiela S., von Lilienfeld O., Tkatchenko A., Tsuda K., Müller KR. (eds) Machine Learning Meets Quantum Physics. Lecture Notes in Physics, vol 968. Springer, Cham. [https://doi.org/10.1007/978-3-030-40245-7_17](https://doi.org/10.1007/978-3-030-40245-7_17)
 
-Since *httk* may call upon many other pieces of software quite
+Since *httk₂* may call upon many other pieces of software quite
 transparently, it may not be initially obvious what other software should be
-cited. httk₂ therefore keeps track of the functionality your program actually
+cited. However, *httk₂* keeps track of the functionality your program actually
 used and can print the corresponding citation list on request. Ask for it at
 the end of your program, or when it produces a report:
 
@@ -206,7 +206,7 @@ print(httk.core.credits)
 
 ```
 The output lists what the running program ought to cite and why, including the
-*httk* reference above and the references registered by the modules and
+*httk₂* reference above and the references registered by the modules and
 external programs that were used. See the
 [credits documentation](https://docs.httk.org/httk-core/dev/main/credits.html)
 for details, including how to register citations for your own modules.
@@ -230,4 +230,4 @@ httk2 README for the details.
 
 ## More documentation
 
-More extensive documentation about *httk* is available at [https://docs.httk.org](https://docs.httk.org)
+More extensive documentation about *httk₂* is available at [https://docs.httk.org](https://docs.httk.org)
