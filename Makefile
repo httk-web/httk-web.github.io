@@ -6,6 +6,7 @@ ci: check-examples generate
 
 check-examples:
 	$(PYTHON) check_examples.py
+	$(PYTHON) check_serving_example.py src/content/quickstart-httk-serve.md
 
 generate:
 	$(PYTHON) ./publish_static.py
