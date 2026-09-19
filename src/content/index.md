@@ -26,7 +26,7 @@ The first version of *httk* was created in 2014. This site describes *httk₂*, 
 
 <h2 id="installation">Installation</h2>
 
-*httk₂* requires Python 3.12 or newer. The `httk2` metapackage installs the complete standard set of httk₂ modules, each with its recommended default features, in one step:
+*httk₂* requires Python 3.12 or newer. The `httk2` metapackage installs the complete standard set of *httk₂* modules, each with its recommended default features, in one step:
 
 ```bash
 pip install httk2
@@ -195,23 +195,19 @@ This is presently the preferred citation:
 
 - Armiento R. (2020) Database-Driven High-Throughput Calculations and Machine Learning Models for Materials Design. In: Schütt K., Chmiela S., von Lilienfeld O., Tkatchenko A., Tsuda K., Müller KR. (eds) Machine Learning Meets Quantum Physics. Lecture Notes in Physics, vol 968. Springer, Cham. [https://doi.org/10.1007/978-3-030-40245-7_17](https://doi.org/10.1007/978-3-030-40245-7_17)
 
-Since *httk₂* may call upon many other pieces of software quite
-transparently, it may not be initially obvious what other software should be
-cited. However, *httk₂* keeps track of the functionality your program actually
-used and can print the corresponding citation list on request. Ask for it at
-the end of your program, or when it produces a report:
+Since *httk₂* may call upon many other pieces of software quite transparently, it may not be initially obvious what other software should be cited. However, *httk₂* keeps track of the functionality your program actually used and can print the corresponding citation list on request. Ask for it at the end of your program, or when it produces a report:
 
 ```python
 import httk.core
 
 print(httk.core.credits)
-
 ```
-The output lists what the running program ought to cite and why, including the
-*httk₂* reference above and the references registered by the modules and
-external programs that were used. See the
-[credits documentation](https://docs.httk.org/httk-core/dev/main/credits.html)
-for details, including how to register citations for your own modules.
+
+The output lists what the running program ought to cite and why, including the *httk₂* reference above and the references registered by the modules and external programs that were used. See the [credits documentation](https://docs.httk.org/httk-core/dev/main/credits.html) for details, including how to register citations for your own modules.
+
+<h3 id="typography">Typography</h2>
+
+When referencing *httk* in digital and printed works, we prefer it to be set in all lowercase italics, and, in particular if version 2 is being referenced, it should be followed by a subscript 2, preferably rendered as an italicized unicode character 2082, i.e., like this: *httk₂*.
 
 <h2 id="contribute">Contribute</h2>
 
