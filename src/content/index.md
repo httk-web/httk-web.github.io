@@ -205,7 +205,7 @@ print(httk.core.credits)
 
 The output lists what the running program ought to cite and why, including the *httk₂* reference above and the references registered by the modules and external programs that were used. See the [credits documentation](https://docs.httk.org/httk-core/dev/main/credits.html) for details, including how to register citations for your own modules.
 
-<h3 id="typography">Typography</h2>
+**Typography**
 
 When referencing *httk* in digital and printed works, we prefer it to be set in all lowercase italics, and, in particular if version 2 is being referenced, it should be followed by a subscript 2, preferably rendered as an italicized unicode character 2082, i.e., like this: *httk₂*.
 
