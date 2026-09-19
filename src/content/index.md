@@ -90,7 +90,10 @@ Individual modules can also be installed on their own, e.g.,
 
 ## Usage overview
 
-<img src="httk_maps2.svg" width="100%"/>
+<img src="img/httk_maps2.svg" width="100%"/>
+
+Figure showing how *httk₂* spans the central features for true database-centric workflows for high-throughput computations and AI/ML along with API access to data.
+Database-centric high-throughput methodology was pioneered by G. Ceder and others in what become the [materials project](https://www.materialsproject.com) See: [[*Commentary: The Materials Project: A materials genome approach to accelerating materials innovation*, A. Jain, G. Hautier, C. J. Moore, S. P. Ong, C. C. Fischer, T. Mueller, K. A. Persson, G. Ceder, Comp. Mat. Sci. 50, 2295 (2011)]](https://doi.org/10.1063/1.4812323).
 
 ## A few basic usage examples
 
