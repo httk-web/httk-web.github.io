@@ -96,9 +96,9 @@ This is what makes httk₂ structures exact: a hexagonal cell basis involves
 `sqrt(3)`, which the surd field represents without approximation:
 
 ```python
-from httk.atomistic import CellParams, CellView
+from httk.atomistic import Cell
 
-hexagonal = CellView(CellParams([3, 3, 5, 90, 90, 120]))
+hexagonal = Cell([3, 3, 5, 90, 90, 120])
 print(hexagonal.basis)
 print("volume:", hexagonal.volume, "=", float(hexagonal.volume))
 
