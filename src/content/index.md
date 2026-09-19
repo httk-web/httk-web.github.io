@@ -6,9 +6,11 @@ base_template: base_default
 
 # The High-Throughput Toolkit (*httk₂*)
 
-The High-Throughput Toolkit (*httk₂*) is a toolkit for preparing and running calculations, analyzing the results, and storing results in global and/or personalized databases. *httk₂* is presently targeted at atomistic calculations in materials science and electronic structure, but aims to be extended into a library useful also outside those areas.
+The High-Throughput Toolkit (*httk₂*) is an open-source toolkit for *preparing* and *running* automated workflows of calculations, *analyzing* the results, and *store* them in a global and/or in a personalized database, and providing *UI and API access to tha data.* Presently, *httk₂* is primarily targeted at atomistic calculations in materials science and electronic structure, but aims to be more broadly useful outside those areas.
 
-The first version of *httk* was created in 2014. This site describes *httk₂*, the current main version.
+The first version of *httk* was released in 2014. This site documents *httk₂*, maintained mainly by the [Unit of Materials Design and Informatics](https://liu.se/en/research/materials-design-and-informatics) at [Theoretical Physics](https://liu.se/en/research/theoretical-physics) at [Linköping University](https://www.liu.se/) (LiU) in Sweden. The development lead is [Rickard Armiento](https://liu.se/en/employee/ricar47).
+
+**For an inventory of our other software project and datasets, see the [Anyterial](https://www.anyterial.se) website.**
 
 <div class="alert alert-secondary" role="alert">
 <strong>Looking for httk v1?</strong> The legacy version has its own website at
