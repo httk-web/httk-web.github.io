@@ -28,5 +28,6 @@ front page for step-by-step instructions with `venv`, `uv`, or `conda`.
     - [Databases](quickstart-databases.html)
     - [The OPTIMADE client](quickstart-optimade.html)
     - [UI and websites](quickstart-httk-serve.html)
+    - [Running calculations and serving the results over OPTIMADE](quickstart-calculations.html)
 
 * The full documentation includes [example notebooks](https://docs.httk.org/dev/main/notebooks/) and a [step-by-step tutorial](https://docs.httk.org/dev/main/tutorial/).

@@ -87,6 +87,7 @@ Individual modules can also be installed on their own, e.g.,
     - [Databases](quickstart-databases.html)
     - [The OPTIMADE client](quickstart-optimade.html)
     - [UI and websites](quickstart-httk-serve.html)
+    - [Running calculations and serving the results over OPTIMADE](quickstart-calculations.html)
 
 ## Usage overview
 
