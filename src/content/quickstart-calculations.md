@@ -147,9 +147,12 @@ This stores every finished job of the workspace; `--job diamond` limits it to
 one job and the jobs below it. `--id-base` sets the prefix of the entry ids
 the database mints. The database then holds:
 
-- **Structures**, each stored once: the input file, the standardized cell,
-  and the relaxed cell, which the relaxation produced and the other four
-  calculations started from.
+- **Structures**, each stored once: the input structure, the standardized
+  cell, and the relaxed cell, which the relaxation produced and the other four
+  calculations started from. The input structure is stored as *httk₂* reads
+  it, with an alternative that holds `diamond.POSCAR` read exactly as written
+  and refers to the file itself, so the workflow can be given the same input
+  again.
 - **Results** as typed records, such as the band gap, the elastic tensor,
   the bulk and shear moduli, the dielectric tensors and the zero-point energy.
 - **Files**: each workflow's output document, and each VASP run's atomate2
@@ -161,7 +164,9 @@ the database mints. The database then holds:
 
 File entries refer to the files in the workspace by relative URLs, such as
 `data/diamond/jobs/succeeded/…/run/child-outputs.json`, where `diamond` is the
-workspace's name.
+workspace's name. A file entry is identified by its content (its SHA-256
+digest and type), not by where it lies: the same bytes used by many jobs are
+one entry.
 
 ## Serve the database over OPTIMADE
 
@@ -221,7 +226,7 @@ curl -G localhost:8080/v1/_httk_runs \
      "_httk_started_at": "2026-10-20T06:10:09.084297+00:00",
      "_httk_finished_at": "2026-10-20T07:01:07.068499+00:00"},
    "relationships": {
-     "_httk_has_input": {"data": [{"id": "httk.diamond-1-8", "type": "structures",
+     "_httk_has_input": {"data": [{"id": "httk.diamond-1-8~file_951f71455ad6fbfe", "type": "structures",
        "meta": {"role": "input", "_httk_label": "initial_structure"}}]},
      "_httk_has_artifact": {"data": [
        {"id": "httk.diamond-1-5", "type": "structures", "meta": {"_httk_label": "standardized_structure", …}},
@@ -251,6 +256,14 @@ curl localhost:8080/v1/files/httk.diamond-1-18
 
 Each entry type numbers its ids separately, so `httk.diamond-1-18` names both a
 run and a file here.
+
+The run's input, `httk.diamond-1-8~file_951f71455ad6fbfe`, is that
+alternative of the input structure. It is served at
+`/v1/structures/httk.diamond-1-8/_httk_alts/file_951f71455ad6fbfe`, with
+`_httk_is_input` naming the run and a `files` relationship to the entry for
+`diamond.POSCAR`, whose `checksums` give the digest to check a copy against.
+The part after `file_` comes from the file's content, so the same
+`diamond.POSCAR` gives the same id.
 
 Following the relationships from any entry leads through the runs to the
 input structure, and from there to every result computed from it. For a
