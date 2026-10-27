@@ -6,7 +6,7 @@ base_template: base_default
 
 # The High-Throughput Toolkit (*httk₂*)
 
-The High-Throughput Toolkit (*httk₂*) is an open-source toolkit for *preparing* and *running* automated computational workflows, *analyzing* the results, *store* them in a global and/or in a personalized database, and providing *UI and API access to tha data.* Presently, *httk₂* is primarily targeted at atomistic calculations in materials science and electronic structure, but aims to be more broadly useful outside those areas.
+The High-Throughput Toolkit (*httk₂*) is an open-source toolkit for *preparing* and *running* automated computational workflows, *analyzing* the results, *storing* them in a global and/or in a personalized database, and providing *UI and API access to the data.* Presently, *httk₂* is primarily targeted at atomistic calculations in materials science and electronic structure, but aims to be more broadly useful outside those areas.
 
 The first version of *httk* was released in 2014. This site documents *httk₂*, maintained mainly by the [Unit of Materials Design and Informatics](https://liu.se/en/research/materials-design-and-informatics) at [Theoretical Physics](https://liu.se/en/research/theoretical-physics) at [Linköping University](https://www.liu.se/) (LiU) in Sweden. The lead developer and maintainer is [Rickard Armiento](https://liu.se/en/employee/ricar47). The AUTHOR files in the respective source code repositories list significant contributors.
 
@@ -58,10 +58,10 @@ We recommend installing into a virtual environment. Pick your preferred tool:
 <div class="tab-pane fade show active" id="install-venv" role="tabpanel">
 
 ```bash
-python3 --version           # check that you have Python 3.12 or newer
+python3 --version             # check that you have Python 3.12 or newer
 python3 -m venv .venv
 source .venv/bin/activate
-pip install httk2           # to include, e.g., VASP support, use: httk2[vasp]
+python3 -m pip install httk2  # include, e.g., VASP support by: `python3 -m pip install httk2[vasp]`
 ```
 
 </div>
@@ -70,7 +70,7 @@ pip install httk2           # to include, e.g., VASP support, use: httk2[vasp]
 ```bash
 uv venv --python 3.12 .venv
 source .venv/bin/activate
-uv pip install httk2        # to include, e.g., VASP support, use: httk2[vasp]
+uv pip install httk2          # include, e.g., VASP support by: `uv pip install httk2[vasp]`
 ```
 
 </div>
@@ -79,25 +79,25 @@ uv pip install httk2        # to include, e.g., VASP support, use: httk2[vasp]
 ```bash
 conda create -n httk2 python=3.12 pip
 conda activate httk2
-python -m pip install httk2
+python -m pip install httk2   # include, e.g., VASP support by: `python3 -m pip install httk2[vasp]`
 ```
 
 </div>
 <div class="tab-pane fade" id="install-git-venv" role="tabpanel">
 
 ```bash
-python3 --version         # check that you have Python 3.12 or newer; otherwise go with git+conda instead
+python3 --version           # check that you have Python 3.12 or newer; otherwise go with git+conda instead
 git clone 'https://github.com/httk/httk2.git'
 cd httk2
 python3 -m venv .venv
 source .venv/bin/activate
-make checkout-main        # or `make checkout-develop` if you want the unstable develop branch
-make install              # or, e.g., `make install-vasp` to also get support for that software
+make checkout-main          # or `make checkout-develop` if you want the unstable develop branch
+make install                # or, e.g., `make install-vasp` to also get support for that software
 ```
-If you intend to do httk2 development, also consider:
+If you intend to do *httk₂* development, also consider:
 ```bash
-make ssh-push-remotes     # makes the httk module repositories push:able via ssh
-make install-develop      # adds development tools and util dependencies to your virtual environment
+make ssh-push-remotes       # makes the httk module repositories push:able via ssh
+make install-develop        # adds development tools and util dependencies to your virtual environment
 ```
 
 </div>
@@ -108,13 +108,13 @@ conda create -n httk2 python=3.12 pip
 conda activate httk2
 git clone 'https://github.com/httk/httk2.git'
 cd httk2
-make checkout-main        # or `make checkout-develop` if you want the unstable develop branch
-make install              # or, e.g., `make install-vasp` to also get support for that software
+make checkout-main          # or `make checkout-develop` if you want the unstable develop branch
+make install                # or, e.g., `make install-vasp` to also get support for that software
 ```
-If you intend to do httk2 development, also consider:
+If you intend to do *httk₂* development, also consider:
 ```bash
-make ssh-push-remotes     # makes the httk module repositories push:able via ssh
-make install-develop      # adds development tools and util dependencies to your virtual environment
+make ssh-push-remotes       # makes the httk module repositories push:able via ssh
+make install-develop        # adds development tools and util dependencies to your virtual environment
 ```
 
 </div>
