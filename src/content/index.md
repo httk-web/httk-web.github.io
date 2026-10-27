@@ -6,49 +6,62 @@ base_template: base_default
 
 # The High-Throughput Toolkit (*httk₂*)
 
-The High-Throughput Toolkit (*httk₂*) is an open-source toolkit for *preparing* and *running* automated workflows of calculations, *analyzing* the results, and *store* them in a global and/or in a personalized database, and providing *UI and API access to tha data.* Presently, *httk₂* is primarily targeted at atomistic calculations in materials science and electronic structure, but aims to be more broadly useful outside those areas.
+The High-Throughput Toolkit (*httk₂*) is an open-source toolkit for *preparing* and *running* automated computational workflows, *analyzing* the results, *store* them in a global and/or in a personalized database, and providing *UI and API access to tha data.* Presently, *httk₂* is primarily targeted at atomistic calculations in materials science and electronic structure, but aims to be more broadly useful outside those areas.
 
-The first version of *httk* was released in 2014. This site documents *httk₂*, maintained mainly by the [Unit of Materials Design and Informatics](https://liu.se/en/research/materials-design-and-informatics) at [Theoretical Physics](https://liu.se/en/research/theoretical-physics) at [Linköping University](https://www.liu.se/) (LiU) in Sweden. The development lead is [Rickard Armiento](https://liu.se/en/employee/ricar47).
+The first version of *httk* was released in 2014. This site documents *httk₂*, maintained mainly by the [Unit of Materials Design and Informatics](https://liu.se/en/research/materials-design-and-informatics) at [Theoretical Physics](https://liu.se/en/research/theoretical-physics) at [Linköping University](https://www.liu.se/) (LiU) in Sweden. The lead developer and maintainer is [Rickard Armiento](https://liu.se/en/employee/ricar47). The AUTHOR files in the respective source code repositories list significant contributors.
 
-**For an inventory of our other software project and datasets, see the [Anyterial](https://www.anyterial.se) website.**
+**For an inventory of other software project and datasets we are involved in, see the [Anyterial](https://www.anyterial.se) website.**
 
 <div class="alert alert-secondary" role="alert">
-<strong>Looking for httk v1?</strong> The legacy version has its own website at
+<strong>Looking for <i>httk</i> v1?</strong> The legacy website is available at
 <a href="https://httk.org/v1">httk.org/v1</a>, documentation at
 <a href="https://olddocs.httk.org">olddocs.httk.org</a>, and source code at
 <a href="https://github.com/httk/httk">github.com/httk/httk</a>.
-<strong>Note that httk v1 and <i>httk₂</i> cannot be installed in the same Python environment.</strong>
+<strong>Note that <i>httk</i> v1 and <i>httk₂</i> cannot be installed in the same Python environment.</strong>
 </div>
 
-*httk₂* is a rewrite of *httk v1* as a **modular toolkit**: instead of a single monolithic package, its functionality is split across independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more). This lets you install and depend on only the parts you need, while `httk.core` provides the shared plugin, loading, and view/backend machinery the other modules build on.
+*httk₂* is a rewrite of *httk v1* as a **modular toolkit**: its functionality is split across a set of independent module repositories that share a common, PEP 420 native `httk.*` namespace (`httk.core`, `httk.atomistic`, `httk.store`, and more) where `httk.core` provides a shared plugin, loading, and view/backend machinery the other modules build on. This layout allows dependencies to be resolved with just the parts needed.
 
 <div class="alert alert-warning" role="alert">
-<strong>⚠ EARLY BETA</strong> The organization of <i>httk₂</i> packages and their APIs is not yet stable, and may change between releases during the v2.1.* versions.
+<strong>⚠ BETA</strong> The organization of <i>httk₂</i> packages and their APIs is not yet stable, and there may be backward-breaking changes between v2.1.* versions.
 </div>
 
 <h2 id="installation">Installation</h2>
 
 *httk₂* requires Python 3.12 or newer. The `httk2` metapackage installs the complete standard set of *httk₂* modules, each with its recommended default features, in one step:
 
+**Short version**
+
 ```bash
 pip install httk2
-
 ```
+If you are a frequent user of, e.g., the VASP simulation software you can get our support packages included via a so called PIP extra, e.g.:
+```bash
+pip install httk2[vasp]
+```
+Other valid options are: `qe` (Quantum Esspresso), `abinit`, `cp2k`, `gromacs`, `lammps`, `orca`.
+
+Individual modules can also be installed on their own, e.g., `pip install httk-atomistic`; see the [httk2 README](https://github.com/httk/httk2#readme) for the list of modules.
+
+**Different tools and dev use**
+
 We recommend installing into a virtual environment. Pick your preferred tool:
 
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#install-venv" role="tab">Python venv</a></li>
+<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#install-venv" role="tab">venv</a></li>
 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#install-uv" role="tab">uv</a></li>
 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#install-conda" role="tab">conda</a></li>
+<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#install-git-venv" role="tab">git + venv</a></li>
+<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#install-git-conda" role="tab">git + conda</a></li>
 </ul>
 <div class="tab-content">
 <div class="tab-pane fade show active" id="install-venv" role="tabpanel">
 
 ```bash
-python3 --version  # check that you have Python 3.12 or newer
+python3 --version           # check that you have Python 3.12 or newer
 python3 -m venv .venv
 source .venv/bin/activate
-pip install httk2
+pip install httk2           # to include, e.g., VASP support, use: httk2[vasp]
 ```
 
 </div>
@@ -57,7 +70,7 @@ pip install httk2
 ```bash
 uv venv --python 3.12 .venv
 source .venv/bin/activate
-uv pip install httk2
+uv pip install httk2        # to include, e.g., VASP support, use: httk2[vasp]
 ```
 
 </div>
@@ -70,11 +83,42 @@ python -m pip install httk2
 ```
 
 </div>
-</div>
+<div class="tab-pane fade" id="install-git-venv" role="tabpanel">
 
-Individual modules can also be installed on their own, e.g.,
-`pip install httk-atomistic`; see the
-[httk2 README](https://github.com/httk/httk2#readme) for the list of modules.
+```bash
+python3 --version         # check that you have Python 3.12 or newer; otherwise go with git+conda instead
+git clone 'https://github.com/httk/httk2.git'
+cd httk2
+python3 -m venv .venv
+source .venv/bin/activate
+make checkout-main        # or `make checkout-develop` if you want the unstable develop branch
+make install              # or, e.g., `make install-vasp` to also get support for that software
+```
+If you intend to do httk2 development, also consider:
+```bash
+make ssh-push-remotes     # makes the httk module repositories push:able via ssh
+make install-develop      # adds development tools and util dependencies to your virtual environment
+```
+
+</div>
+<div class="tab-pane fade" id="install-git-conda" role="tabpanel">
+
+```bash
+conda create -n httk2 python=3.12 pip
+conda activate httk2
+git clone 'https://github.com/httk/httk2.git'
+cd httk2
+make checkout-main        # or `make checkout-develop` if you want the unstable develop branch
+make install              # or, e.g., `make install-vasp` to also get support for that software
+```
+If you intend to do httk2 development, also consider:
+```bash
+make ssh-push-remotes     # makes the httk module repositories push:able via ssh
+make install-develop      # adds development tools and util dependencies to your virtual environment
+```
+
+</div>
+</div>
 
 ## Quickstart
 
